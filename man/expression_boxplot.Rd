@@ -9,20 +9,13 @@ expression_boxplot(gene, dataset = NULL, violin = FALSE)
 \arguments{
 \item{gene}{Character; gene symbol to plot (e.g., "HLA-DQA1").}
 
-\item{dataset}{Data frame or matrix; optional dataset with columns:
-`gene`, `sample`, `condition`, `expression`. If NULL, uses demo data.}
+\item{dataset}{Data frame; optional dataset with expression data.}
 
-\item{violin}{Logical; whether to draw violin plots instead of boxplots (default FALSE).}
+\item{violin}{Logical; whether to draw violin plots instead of boxplots.}
 }
 \value{
 A ggplot2 object showing expression distribution between groups.
 }
 \description{
-Creates a boxplot or violin plot comparing expression levels of a specified gene
-between CeD and control samples. Uses bundled demo data if none provided.
-}
-\examples{
-\dontrun{
-expression_boxplot("HLA-DQA1")
-}
+Creates a boxplot comparing expression levels between CeD and control samples.
 }

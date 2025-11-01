@@ -1,23 +1,25 @@
 Package: CeDExplorer
-Type: Package
-Title: What the Package Does (Title Case)
+Title: Celiac Disease Gene Expression and GWAS Analysis Toolkit
 Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Authors@R: 
+    person("Your", "Name", email = "your.email@mail.utoronto.ca", role = c("aut", "cre"))
+Description: A comprehensive toolkit for analyzing celiac disease genetic and expression data. 
+    Provides functions for GWAS visualization, gene expression analysis, protein-protein 
+    interaction networks, and HLA association studies to support celiac disease research.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: 
-    R (>= 3.5)
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-Imports:
+Imports: 
     ggplot2,
     igraph,
-    ggraph 
+    ggraph
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown,
+    patchwork
+VignetteBuilder: knitr
+Depends: 
+    R (>= 4.1.0)

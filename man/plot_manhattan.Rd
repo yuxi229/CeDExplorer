@@ -13,8 +13,8 @@ plot_manhattan(
 )
 }
 \arguments{
-\item{data}{A `data.frame` containing GWAS summary statistics. If `NULL`, uses
-the bundled example dataset `celiac_gwas_example`.}
+\item{data}{A \code{data.frame} containing GWAS summary statistics. If \code{NULL}, uses
+the bundled example dataset \code{celiac_gwas_example}.}
 
 \item{highlight}{Optional vector of SNP IDs (rsIDs) or gene names to highlight.}
 
@@ -33,7 +33,7 @@ A ggplot2 object (or base R plot if use_qqman = TRUE)
 Generates a Manhattan plot showing genome-wide SNP-level associations
 (-log10 p-values) for celiac disease (CeD) or a user-supplied GWAS dataset.
 The function can either use the bundled example dataset or take a custom data.frame
-with at least `chromosome`, `position`, and `p_value` columns.
+with at least \code{chromosome}, \code{position}, and \code{p_value} columns.
 }
 \examples{
 \dontrun{

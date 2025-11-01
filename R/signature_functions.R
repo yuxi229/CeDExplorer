@@ -18,7 +18,8 @@
 #'   \item{plot}{ggplot2 object (if plot = TRUE).}
 #' }
 #' @export
-#'
+#' @importFrom utils data
+#' @importFrom stats wilcox.test
 #' @examples
 #' \dontrun{
 #' res <- score_inflammation_signature(signature = "IFN_gamma")

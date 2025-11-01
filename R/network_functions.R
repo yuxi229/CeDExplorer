@@ -12,7 +12,8 @@
 #'
 #' @return A ggplot2 object showing the gene interaction network.
 #' @export
-#'
+#' @importFrom utils data
+#' @importFrom grDevices colorRampPalette
 #' @examples
 #' \dontrun{
 #' # Basic network with HLA genes

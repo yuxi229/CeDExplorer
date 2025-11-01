@@ -1,0 +1,84 @@
+---
+output: github_document
+---
+
+# CeDExplorer
+
+Celiac Disease Gene Expression and GWAS Analysis Toolkit
+
+## Description
+
+CeDExplorer is an R package designed for comprehensive analysis of celiac disease genetic and expression data. It provides tools for GWAS visualization, gene expression analysis, protein-protein interaction networks, and HLA association studies to support celiac disease research. The package addresses the need for integrated analysis of multiple data types in celiac disease research by combining GWAS summary statistics, gene expression data, and protein interaction networks into a unified workflow.
+
+This package was developed using R version 4.3.2 on macOS platform.
+
+## Installation
+
+To install the latest version of the package:
+
+```r
+install.packages("devtools")
+library("devtools")
+devtools::install_github("yuxi-wang-98/CeDExplorer", build_vignettes = TRUE)
+library("CeDExplorer")
+```
+
+To run the shinyApp: Under construction
+
+## Overview
+
+```r
+ls("package:CeDExplorer")
+data(package = "CeDExplorer")
+browseVignettes("CeDExplorer")
+```
+
+### Available Functions:
+
+- `get_celiac_gwas()`: Retrieve celiac disease GWAS summary statistics
+- `plot_manhattan()`: Create Manhattan plots for GWAS visualization  
+- `expression_boxplot()`: Plot gene expression across conditions
+- `score_inflammation_signature()`: Calculate inflammation signature scores
+- `plot_gene_network()`: Visualize protein-protein interaction networks
+- `hla_interaction_plot()`: Plot HLA allele frequency vs gene expression
+- `geneEvidenceView()`: Composite dashboard for gene evidence integration
+
+![Package Overview](man/figures/overview.png)
+
+## Contributions
+
+**Yuxi Wang**: Primary developer and author of the CeDExplorer package. Implemented all core functions including GWAS data retrieval, visualization tools, network analysis, and the composite dashboard system. Designed the package architecture and integrated multiple data analysis workflows.
+
+**Other packages**: 
+- ggplot2 for data visualization
+- igraph and ggraph for network analysis  
+- testthat for unit testing
+
+**Generative AI Assistance**: ChatGPT was used for:
+- Function scaffolding and initial code structure
+- Debugging assistance and error resolution
+- Test case generation and documentation templates
+- Code optimization suggestions
+
+All AI-generated content was reviewed, validated, and integrated by the author.
+
+## References
+
+Wickham, H. (2019). Advanced R. Chapman and Hall/CRC.
+
+Wickham, H., et al. (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686.
+
+Csardi, G., & Nepusz, T. (2006). The igraph software package for complex network research. InterJournal, Complex Systems, 1695(5), 1-9.
+
+## Acknowledgements
+
+This package was developed as part of an assessment for 2025 BCB410H: Applied Bioinformatics course at the University of Toronto, Toronto, CANADA. CeDExplorer welcomes issues, enhancement requests, and other contributions. To submit an issue, use the GitHub issues.
+
+## Package Structure
+
+The package is organized into modular components for different analysis types:
+- GWAS analysis and visualization
+- Gene expression profiling  
+- Protein interaction networks
+- HLA association studies
+- Integrated dashboards

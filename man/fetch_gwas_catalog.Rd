@@ -9,10 +9,10 @@ fetch_gwas_catalog(trait, save = FALSE)
 \arguments{
 \item{trait}{Character; name of the trait (e.g., "celiac disease", "type 2 diabetes").}
 
-\item{save}{Logical; if TRUE, saves the results to "<trait>_gwas.tsv".}
+\item{save}{Logical; if TRUE, saves the results to "\if{html}{\out{<trait>}}_gwas.tsv".}
 }
 \value{
-A `data.frame` with SNP-level associations including mapped genes and p-values.
+A \code{data.frame} with SNP-level associations including mapped genes and p-values.
 }
 \description{
 Programmatically retrieves studies and associations for a user-specified trait

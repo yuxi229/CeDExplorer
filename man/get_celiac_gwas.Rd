@@ -19,8 +19,7 @@ A data.frame with SNP, mapped_gene, chromosome, position, p_value, odds_ratio, s
 A data.frame with SNP, mapped_gene, chromosome, position, p_value, odds_ratio, source.
 }
 \description{
-Loads a bundled curated CeD GWAS dataset, or optionally fetches the latest
-GWAS associations from the GWAS Catalog via the gwasrapidd API.
+Loads a bundled curated CeD GWAS dataset
 
 Loads a bundled curated CeD GWAS dataset, or optionally fetches the latest
 GWAS associations from the GWAS Catalog via the gwasrapidd API.

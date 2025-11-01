@@ -14,7 +14,9 @@
 #'
 #' @return A ggplot2 object showing HLA allele frequency vs gene expression.
 #' @export
-#'
+#' @importFrom utils data
+#' @importFrom stats cor.test
+#' @importFrom stats rnorm
 #' @examples
 #' \dontrun{
 #' # Basic plot with HLA-DQA1
@@ -29,65 +31,65 @@ hla_interaction_plot <- function(gene,
                                  condition_col = "condition",
                                  point_size = 2,
                                  add_trend = TRUE) {
-
+  
   # Check required packages
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     stop("Please install ggplot2: install.packages('ggplot2')")
   }
-
+  
   # Validate inputs
   if (missing(gene) || !is.character(gene) || length(gene) == 0) {
     stop("Please provide a gene symbol.")
   }
-
+  
   # Load example data if not provided
   if (is.null(dataset)) {
     dataset <- get_hla_expression_data()
   }
-
+  
   if (is.null(allele_freq)) {
     allele_freq <- get_hla_allele_frequencies()
   }
-
+  
   # Validate dataset structure
   required_cols <- c("sample", condition_col, gene)
   missing_cols <- setdiff(required_cols, colnames(dataset))
   if (length(missing_cols) > 0) {
     stop("Dataset missing required columns: ", paste(missing_cols, collapse = ", "))
   }
-
+  
   # Validate allele frequency data
   if (!all(c("allele", "frequency", "condition") %in% colnames(allele_freq))) {
     stop("allele_freq must contain columns: allele, frequency, condition")
   }
-
+  
   # Check if gene exists in allele frequency data
   if (!gene %in% allele_freq$allele) {
     stop("Gene '", gene, "' not found in allele frequency data. Available: ",
          paste(unique(allele_freq$allele), collapse = ", "))
   }
-
+  
   # Filter allele frequency data for the specific gene
   gene_freq <- allele_freq[allele_freq$allele == gene, ]
-
+  
   # Merge expression and frequency data
   plot_data <- merge(dataset[, c("sample", condition_col, gene)],
                      gene_freq[, c("condition", "frequency")],
                      by.x = condition_col,
                      by.y = "condition",
                      all.x = TRUE)
-
+  
   # Rename columns for clarity
   colnames(plot_data)[colnames(plot_data) == gene] <- "expression"
   colnames(plot_data)[colnames(plot_data) == condition_col] <- "condition"
-
+  
   # Remove any NA values
   plot_data <- plot_data[!is.na(plot_data$expression) & !is.na(plot_data$frequency), ]
-
+  
   if (nrow(plot_data) == 0) {
     stop("No data available for plotting after merging expression and frequency data.")
   }
-
+  
   # Create the plot
   p <- ggplot2::ggplot(plot_data, ggplot2::aes(x = frequency, y = expression, color = condition)) +
     ggplot2::geom_point(size = point_size, alpha = 0.7) +
@@ -102,14 +104,14 @@ hla_interaction_plot <- function(gene,
       legend.position = "bottom",
       plot.title = ggplot2::element_text(hjust = 0.5, face = "bold")
     )
-
+  
   # Add trend lines if requested
   if (add_trend && length(unique(plot_data$condition)) > 1) {
     p <- p + ggplot2::geom_smooth(ggplot2::aes(group = condition), method = "lm", se = TRUE, alpha = 0.2)
   } else if (add_trend) {
     p <- p + ggplot2::geom_smooth(method = "lm", se = TRUE, alpha = 0.2, color = "blue")
   }
-
+  
   # Add correlation annotation
   corr_text <- calculate_correlation(plot_data$frequency, plot_data$expression)
   p <- p + ggplot2::annotate("text",
@@ -118,41 +120,45 @@ hla_interaction_plot <- function(gene,
                              label = corr_text,
                              hjust = 1, vjust = 1,
                              size = 4, color = "darkred")
-
+  
   return(p)
 }
 
 #' Calculate correlation text for annotation
+#'
 #' @param x Numeric vector
 #' @param y Numeric vector
 #' @return Formatted correlation string
 #' @keywords internal
+#' @importFrom stats cor.test
 calculate_correlation <- function(x, y) {
   if (length(x) < 2 || length(y) < 2) {
     return("Insufficient data")
   }
-
+  
   cor_test <- cor.test(x, y, method = "pearson")
   r <- round(cor_test$estimate, 3)
   p <- round(cor_test$p.value, 4)
-
+  
   if (p < 0.001) {
     p_text <- "p < 0.001"
   } else {
     p_text <- paste("p =", p)
   }
-
+  
   return(paste0("r = ", r, "\n", p_text))
 }
 
 #' Get example HLA expression data
+#'
 #' @return Data.frame with HLA expression data
 #' @keywords internal
+#' @importFrom stats rnorm
 get_hla_expression_data <- function() {
   set.seed(123)
   samples <- paste0("S", 1:100)
   conditions <- rep(c("CeD", "Control"), each = 50)
-
+  
   # Simulate HLA expression data with some biological patterns
   data.frame(
     sample = samples,
@@ -175,6 +181,7 @@ get_hla_expression_data <- function() {
 }
 
 #' Get example HLA allele frequency data
+#'
 #' @return Data.frame with HLA allele frequencies
 #' @keywords internal
 get_hla_allele_frequencies <- function() {

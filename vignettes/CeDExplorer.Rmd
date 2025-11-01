@@ -1,0 +1,62 @@
+---
+title: "CeDExplorer Tutorial"
+author: "Yuxi Wang"
+date: "2025-01-01"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{CeDExplorer Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# CeDExplorer Tutorial
+
+## Introduction
+
+CeDExplorer provides comprehensive tools for celiac disease research, integrating GWAS analysis, gene expression profiling, and network visualization.
+
+## Installation and Loading
+
+```{r, message=FALSE}
+library(CeDExplorer)
+```
+
+## GWAS Analysis
+
+### Get GWAS Data
+```{r}
+gwas_data <- get_celiac_gwas(fetch = FALSE)
+head(gwas_data)
+```
+
+### Manhattan Plot
+```{r}
+plot_manhattan(gwas_data, title = "Celiac Disease GWAS")
+```
+
+## Gene Expression Analysis
+
+```{r}
+expression_boxplot("HLA-DQA1", violin = TRUE)
+```
+
+## Network Analysis
+
+```{r}
+genes <- c("HLA-DQA1", "HLA-DQB1", "IL2", "STAT1")
+plot_gene_network(genes)
+```
+
+## HLA Associations
+
+```{r}
+hla_interaction_plot("HLA-DQA1")
+```
+
+## Composite Dashboard
+
+```{r}
+geneEvidenceView("HLA-DQA1")
+```
+```{r, message=FALSE}
+library(CeDExplorer)

@@ -1,20 +1,17 @@
 #' Expression boxplot for a given gene
 #'
 #' @description
-#' Creates a boxplot or violin plot comparing expression levels of a specified gene
-#' between CeD and control samples. Uses bundled demo data if none provided.
+#' Creates a boxplot comparing expression levels between CeD and control samples.
 #'
 #' @param gene Character; gene symbol to plot (e.g., "HLA-DQA1").
-#' @param dataset Data frame or matrix; optional dataset with columns:
-#'        `gene`, `sample`, `condition`, `expression`. If NULL, uses demo data.
-#' @param violin Logical; whether to draw violin plots instead of boxplots (default FALSE).
-#'
+#' @param dataset Data frame; optional dataset with expression data.
+#' @param violin Logical; whether to draw violin plots instead of boxplots.
 #' @return A ggplot2 object showing expression distribution between groups.
 #' @export
-#' @examples
-#' \dontrun{
-#' expression_boxplot("HLA-DQA1")
-#' }
+#' @importFrom utils data
+#' @importFrom stats wilcox.test
+#' @importFrom grDevices colorRampPalette
+#' @importFrom utils head
 expression_boxplot <- function(gene, dataset = NULL, violin = FALSE) {
   # ---- Argument checks ----
   if (missing(gene) || is.null(gene) || !is.character(gene) || length(gene) == 0) {

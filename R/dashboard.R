@@ -13,7 +13,9 @@
 #'
 #' @return A composite ggplot2 object or list of plots.
 #' @export
-#'
+#' @importFrom utils data
+#' @importFrom utils head
+#' @importFrom stats wilcox.test
 #' @examples
 #' \dontrun{
 #' # Comprehensive view for HLA-DQA1
@@ -124,9 +126,11 @@ geneEvidenceView <- function(gene,
 }
 
 #' Create GWAS gene highlight plot
+#'
 #' @param gene Gene symbol
 #' @return ggplot2 object or NULL
 #' @keywords internal
+#' @importFrom utils data
 create_gwas_gene_highlight <- function(gene) {
   tryCatch({
     # Load GWAS data
@@ -165,9 +169,12 @@ create_gwas_gene_highlight <- function(gene) {
 }
 
 #' Get genes that interact with target gene
+#'
 #' @param gene Gene symbol
 #' @return Vector of interacting genes
 #' @keywords internal
+#' @importFrom utils data
+#' @importFrom utils head
 get_interacting_genes <- function(gene) {
   tryCatch({
     data("ppi_data", package = "CeDExplorer", envir = environment())
@@ -210,7 +217,7 @@ create_hla_association_plot <- function(gene) {
 
       p <- ggplot2::ggplot(hla_data, ggplot2::aes(x = frequency, y = expression, color = condition)) +
         ggplot2::geom_point(size = 3) +
-        ggplot2::geom_segment(ggplot2::aes(xend = frequency, yend = expression), size = 1) +
+        ggplot2::geom_segment(ggplot2::aes(xend = frequency, yend = expression), linewidth = 1) +
         ggplot2::theme_minimal() +
         ggplot2::labs(
           title = paste("HLA:", gene),

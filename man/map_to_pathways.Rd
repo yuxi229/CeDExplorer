@@ -2,41 +2,16 @@
 % Please edit documentation in R/pathway_functions.R
 \name{map_to_pathways}
 \alias{map_to_pathways}
-\title{Pathway enrichment analysis for a given gene list}
+\title{Map genes to pathways}
 \usage{
-map_to_pathways(
-  genes,
-  source = c("GO:BP", "KEGG", "REAC"),
-  organism = "hsapiens",
-  top = 10
-)
+map_to_pathways(genes)
 }
 \arguments{
-\item{genes}{Character vector of gene symbols (e.g., c("HLA-DQA1", "IL2", "TNF")).}
-
-\item{source}{Character; database(s) to use for enrichment (default: "GO:BP", "KEGG", "REAC").}
-
-\item{organism}{Character; organism code for g:Profiler (default: "hsapiens").}
-
-\item{top}{Integer; number of top terms to display in the barplot (default: 10).}
+\item{genes}{Character vector of gene symbols}
 }
 \value{
-A list with elements:
-\describe{
-  \item{results}{data.frame of enriched terms and p-values.}
-  \item{plot}{ggplot object showing the top enriched pathways.}
-}
+Data.frame with pathway information
 }
 \description{
-Runs pathway enrichment (GO, KEGG, Reactome, etc.) using g:Profiler
-for a user-supplied list of genes, returning an enrichment results table
-and a simple ggplot2 barplot of top terms.
-}
-\examples{
-\dontrun{
-data("celiac_gwas_example", package = "CeDExplorer")
-genes <- unique(na.omit(celiac_gwas_example$mapped_gene))
-res <- map_to_pathways(genes)
-res$plot
-}
+Map genes to pathways
 }

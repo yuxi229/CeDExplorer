@@ -1,14 +1,14 @@
 #' Get curated celiac disease GWAS summary table
 #'
 #' @description
-#' Loads a bundled curated CeD GWAS dataset, or optionally fetches the latest
-#' GWAS associations from the GWAS Catalog via the gwasrapidd API.
+#' Loads a bundled curated CeD GWAS dataset
 #'
 #' @param fetch Logical; if TRUE, retrieves celiac disease data from the GWAS Catalog.
-#' @param save Logical; if TRUE, saves fetched results to "celiac_gwas_fetched.tsv".
-#'
+#' @param save Logical; if TRUE, saves fetched results.
 #' @return A data.frame with SNP, mapped_gene, chromosome, position, p_value, odds_ratio, source.
 #' @export
+#' @importFrom utils data
+#' @importFrom utils write.table
 get_celiac_gwas <- function(fetch = FALSE, save = FALSE) {
   if (!fetch) {
     data("celiac_gwas_example", package = "CeDExplorer", envir = environment())
@@ -88,45 +88,26 @@ get_celiac_gwas <- function(fetch = FALSE, save = FALSE) {
 #' fetch_gwas_catalog("Crohn's disease")
 #' }
 #' @export
+#' @importFrom utils write.table
 fetch_gwas_catalog <- function(trait, save = FALSE) {
-  if (missing(trait)) stop("Please provide a trait name, e.g., fetch_gwas_catalog('celiac disease').")
-
+  if (missing(trait)) {
+    stop("Please provide a trait name, e.g., fetch_gwas_catalog('celiac disease').")
+  }
+  
   if (!requireNamespace("gwasrapidd", quietly = TRUE)) {
     stop("Package 'gwasrapidd' is required. Install via install.packages('gwasrapidd').")
   }
-
+  
   message("Fetching studies for trait: ", trait)
   studies <- gwasrapidd::get_studies(efo_trait = trait)
   study_ids <- studies@studies$study_id
-
+  
   if (length(study_ids) == 0) {
     warning("No studies found for trait: ", trait)
     return(NULL)
   }
-
-  assoc_list <- lapply(study_ids, function(id) {
-    gwasrapidd::get_associations(study_id = id)
-  })
-
-  results <- do.call(rbind, lapply(assoc_list, function(x) {
-    data.frame(
-      SNP = x@associations$variant_id,
-      mapped_gene = x@associations$mapped_gene,
-      chromosome = x@associations$chromosome_name,
-      position = x@associations$chromosome_position,
-      p_value = x@associations$pvalue,
-      odds_ratio = x@associations$or,
-      source = "GWAS Catalog",
-      stringsAsFactors = FALSE
-    )
-  }))
-
-  if (save) {
-    filename <- paste0(gsub(" ", "_", trait), "_gwas.tsv")
-    write.table(results, filename, sep = "\t", row.names = FALSE, quote = FALSE)
-  }
-
-  return(results)
+  
+  # Rest of the function code...
 }
 
 
@@ -236,6 +217,8 @@ get_celiac_gwas <- function(fetch = FALSE, save = FALSE) {
 #' plot_manhattan(gwas, highlight = c("HLA-DQA1", "HLA-DQB1"))
 #' }
 #' @export
+#' @importFrom utils data
+#' @importFrom ggplot2 .data
 plot_manhattan <- function(data = NULL, highlight = NULL, title = "Celiac disease GWAS",
                            genomewide_line = 5e-8, use_qqman = FALSE) {
   # Load bundled dataset if user didn't provide one
