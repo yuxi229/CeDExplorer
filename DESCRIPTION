@@ -14,7 +14,11 @@ RoxygenNote: 7.3.3
 Imports: 
     ggplot2,
     igraph,
-    ggraph
+    ggraph,
+    gwasrapidd,
+    dplyr,
+    tidyr,
+    purrr
 Suggests: 
     testthat,
     knitr,

@@ -2,27 +2,18 @@
 % Please edit documentation in R/gwas_functions.R
 \name{get_celiac_gwas}
 \alias{get_celiac_gwas}
-\title{Get curated celiac disease GWAS summary table}
+\title{Get celiac disease GWAS data from GWAS Catalog}
 \usage{
-get_celiac_gwas(fetch = FALSE, save = FALSE)
-
-get_celiac_gwas(fetch = FALSE, save = FALSE)
+get_celiac_gwas(fetch = FALSE, force_fetch = FALSE)
 }
 \arguments{
-\item{fetch}{Logical; if TRUE, retrieves CeD data from the GWAS Catalog.}
+\item{fetch}{Logical, whether to fetch from GWAS Catalog or use bundled data}
 
-\item{save}{Logical; if TRUE, saves fetched results to "celiac_gwas_fetched.tsv".}
+\item{force_fetch}{Logical, whether to force fetching even if bundled data exists}
 }
 \value{
-A data.frame with SNP, mapped_gene, chromosome, position, p_value, odds_ratio, source.
-
-A data.frame with SNP, mapped_gene, chromosome, position, p_value, odds_ratio, source.
+Data frame with GWAS data
 }
 \description{
-Loads a bundled curated CeD GWAS dataset
-
-Loads a bundled curated CeD GWAS dataset, or optionally fetches the latest
-GWAS associations from the GWAS Catalog via the gwasrapidd API.
-If fetched data lack variant coordinates, a warning is shown and
-the bundled example dataset is returned instead.
+Get celiac disease GWAS data from GWAS Catalog
 }

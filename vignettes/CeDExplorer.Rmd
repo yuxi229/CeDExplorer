@@ -25,13 +25,16 @@ library(CeDExplorer)
 
 ### Get GWAS Data
 ```{r}
-gwas_data <- get_celiac_gwas(fetch = FALSE)
-head(gwas_data)
+library(CeDExplorer)
+gwas_data <- get_celiac_gwas(fetch = TRUE)
+cat("Retrieved", nrow(gwas_data), "associations from GWAS Catalog\n")
 ```
 
-### Manhattan Plot
+### Top GWAS Hits and GWAS Summary
 ```{r}
-plot_manhattan(gwas_data, title = "Celiac Disease GWAS")
+plot_top_gwas_hits(gwas_data, top_n = 15, 
+                   title = "Top Celiac Disease GWAS Associations")
+plot_gwas_summary(gwas_data)
 ```
 
 ## Gene Expression Analysis
