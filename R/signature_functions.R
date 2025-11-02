@@ -22,10 +22,10 @@
 #' @importFrom stats wilcox.test
 #' @examples
 #' \dontrun{
-#' res <- score_inflammation_signature(signature = "IFN_gamma")
+#' res <- scoreInflammationSignature(signature = "IFN_gamma")
 #' res$plot
 #' }
-score_inflammation_signature <- function(dataset = NULL,
+scoreInflammationSignature <- function(dataset = NULL,
                                          signature = "IFN_gamma",
                                          method = "mean",
                                          plot = TRUE) {

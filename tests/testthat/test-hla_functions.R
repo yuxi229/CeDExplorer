@@ -1,24 +1,24 @@
 # tests/testthat/test-hla_functions.R
 
-test_that("hla_interaction_plot works with valid inputs", {
+test_that("hlaInteractionPlot works with valid inputs", {
   skip_if_not_installed("ggplot2")
 
   # Test basic functionality
-  p <- hla_interaction_plot("HLA-DQA1")
+  p <- hlaInteractionPlot("HLA-DQA1")
   expect_s3_class(p, "ggplot")
 
   # Test with different parameters
-  p2 <- hla_interaction_plot("HLA-DQB1", point_size = 3, add_trend = TRUE)
+  p2 <- hlaInteractionPlot("HLA-DQB1", point_size = 3, add_trend = TRUE)
   expect_s3_class(p2, "ggplot")
 })
 
-test_that("hla_interaction_plot input validation", {
+test_that("hlaInteractionPlot input validation", {
   # Test error for missing gene
-  expect_error(hla_interaction_plot(), "Please provide a gene symbol")
+  expect_error(hlaInteractionPlot(), "Please provide a gene symbol")
 
   # Test error for invalid gene (now checking for the correct error message)
   expect_error(
-    hla_interaction_plot("INVALID_GENE"),
+    hlaInteractionPlot("INVALID_GENE"),
     "Dataset missing required columns: INVALID_GENE"
   )
 
@@ -36,25 +36,25 @@ test_that("hla_interaction_plot input validation", {
 
   # This should fail because EXTRA_GENE is not in allele frequency data
   expect_error(
-    hla_interaction_plot("EXTRA_GENE", dataset = custom_data),
+    hlaInteractionPlot("EXTRA_GENE", dataset = custom_data),
     "not found in allele frequency data"
   )
 })
 
-test_that("hla_interaction_plot handles edge cases", {
+test_that("hlaInteractionPlot handles edge cases", {
   skip_if_not_installed("ggplot2")
 
   # Test with empty dataset
   empty_data <- data.frame(sample = character(0), condition = character(0))
   expect_error(
-    hla_interaction_plot("HLA-DQA1", dataset = empty_data),
+    hlaInteractionPlot("HLA-DQA1", dataset = empty_data),
     "Dataset missing required columns"
   )
 
   # Test with invalid allele frequency data
   invalid_freq <- data.frame(wrong_col = "test")
   expect_error(
-    hla_interaction_plot("HLA-DQA1", allele_freq = invalid_freq),
+    hlaInteractionPlot("HLA-DQA1", allele_freq = invalid_freq),
     "allele_freq must contain columns: allele, frequency, condition"
   )
 })

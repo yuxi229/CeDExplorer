@@ -12,7 +12,7 @@
 #' @importFrom stats wilcox.test
 #' @importFrom grDevices colorRampPalette
 #' @importFrom utils head
-expression_boxplot <- function(gene, dataset = NULL, violin = FALSE) {
+expressionBoxplot <- function(gene, dataset = NULL, violin = FALSE) {
   # ---- Argument checks ----
   if (missing(gene) || is.null(gene) || !is.character(gene) || length(gene) == 0) {
     stop("Please provide a gene symbol.")
@@ -92,9 +92,9 @@ expression_boxplot <- function(gene, dataset = NULL, violin = FALSE) {
 #' @export
 #' @examples
 #' \dontrun{
-#' celiac_heatmap(c("HLA-DQA1", "IL2", "TNF"))
+#' celiacHeatmap(c("HLA-DQA1", "IL2", "TNF"))
 #' }
-celiac_heatmap <- function(genes, dataset = NULL, scale_rows = TRUE, cluster = TRUE) {
+celiacHeatmap <- function(genes, dataset = NULL, scale_rows = TRUE, cluster = TRUE) {
   if (missing(genes) || length(genes) == 0) {
     stop("Please provide at least one gene name.")
   }

@@ -20,12 +20,12 @@
 #' @examples
 #' \dontrun{
 #' # Basic plot with HLA-DQA1
-#' hla_interaction_plot("HLA-DQA1")
+#' hlaInteractionPlot("HLA-DQA1")
 #'
 #' # Plot with HLA-DQB1 and custom styling
-#' hla_interaction_plot("HLA-DQB1", point_size = 3, add_trend = TRUE)
+#' hlaInteractionPlot("HLA-DQB1", point_size = 3, add_trend = TRUE)
 #' }
-hla_interaction_plot <- function(gene,
+hlaInteractionPlot <- function(gene,
                                  dataset = NULL,
                                  allele_freq = NULL,
                                  condition_col = "condition",
@@ -44,11 +44,11 @@ hla_interaction_plot <- function(gene,
   
   # Load example data if not provided
   if (is.null(dataset)) {
-    dataset <- get_hla_expression_data()
+    dataset <- getHlaExpressionData()
   }
   
   if (is.null(allele_freq)) {
-    allele_freq <- get_hla_allele_frequencies()
+    allele_freq <- getHlaAlleleFrequencies()
   }
   
   # Validate dataset structure
@@ -113,7 +113,7 @@ hla_interaction_plot <- function(gene,
   }
   
   # Add correlation annotation
-  corr_text <- calculate_correlation(plot_data$frequency, plot_data$expression)
+  corr_text <- calculateCorrelation(plot_data$frequency, plot_data$expression)
   p <- p + ggplot2::annotate("text",
                              x = max(plot_data$frequency, na.rm = TRUE),
                              y = max(plot_data$expression, na.rm = TRUE),
@@ -131,7 +131,7 @@ hla_interaction_plot <- function(gene,
 #' @return Formatted correlation string
 #' @keywords internal
 #' @importFrom stats cor.test
-calculate_correlation <- function(x, y) {
+calculateCorrelation <- function(x, y) {
   if (length(x) < 2 || length(y) < 2) {
     return("Insufficient data")
   }
@@ -154,7 +154,7 @@ calculate_correlation <- function(x, y) {
 #' @return Data.frame with HLA expression data
 #' @keywords internal
 #' @importFrom stats rnorm
-get_hla_expression_data <- function() {
+getHlaExpressionData <- function() {
   set.seed(123)
   samples <- paste0("S", 1:100)
   conditions <- rep(c("CeD", "Control"), each = 50)
@@ -184,7 +184,7 @@ get_hla_expression_data <- function() {
 #'
 #' @return Data.frame with HLA allele frequencies
 #' @keywords internal
-get_hla_allele_frequencies <- function() {
+getHlaAlleleFrequencies <- function() {
   # Simulate allele frequency data based on known CeD associations
   data.frame(
     allele = rep(c("HLA-DQA1", "HLA-DQB1", "HLA-DRA", "HLA-DRB1"), each = 2),

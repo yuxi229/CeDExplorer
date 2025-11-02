@@ -1,9 +1,9 @@
 # tests/testthat/test_gwas.R
 context("GWAS Functions")
 
-test_that("get_celiac_gwas returns data frame with expected columns", {
+test_that("getCeliacGwas returns data frame with expected columns", {
   # Test with bundled data (always works)
-  data <- get_celiac_gwas(fetch = FALSE)
+  data <- getCeliacGwas(fetch = FALSE)
   
   expect_s3_class(data, "data.frame")
   expect_true(nrow(data) > 0)
@@ -13,51 +13,51 @@ test_that("get_celiac_gwas returns data frame with expected columns", {
   expect_true(all(expected_cols %in% names(data)))
 })
 
-test_that("get_celiac_gwas handles fetch = TRUE gracefully", {
+test_that("getCeliacGwas handles fetch = TRUE gracefully", {
   # Test that it doesn't crash with fetch = TRUE
   # It should either return real data or fall back to bundled data
-  data <- get_celiac_gwas(fetch = TRUE)
+  data <- getCeliacGwas(fetch = TRUE)
   
   expect_s3_class(data, "data.frame")
   expect_true(nrow(data) > 0)
   expect_true("p_value" %in% names(data))
 })
 
-test_that("plot_top_gwas_hits creates ggplot object", {
-  data <- get_celiac_gwas(fetch = FALSE)
+test_that("plotTopGwasHits creates ggplot object", {
+  data <- getCeliacGwas(fetch = FALSE)
   
   # Test basic plot
-  plot <- plot_top_gwas_hits(data, top_n = 5)
+  plot <- plotTopGwasHits(data, top_n = 5)
   expect_s3_class(plot, "ggplot")
   expect_s3_class(plot, "gg")
   
   # Test with different top_n values
-  plot_10 <- plot_top_gwas_hits(data, top_n = 10)
+  plot_10 <- plotTopGwasHits(data, top_n = 10)
   expect_s3_class(plot_10, "ggplot")
 })
 
-test_that("plot_top_gwas_hits handles edge cases", {
-  data <- get_celiac_gwas(fetch = FALSE)
+test_that("plotTopGwasHits handles edge cases", {
+  data <- getCeliacGwas(fetch = FALSE)
   
   # Test with very small top_n
-  plot <- plot_top_gwas_hits(data, top_n = 2)
+  plot <- plotTopGwasHits(data, top_n = 2)
   expect_s3_class(plot, "ggplot")
   
   # Test with top_n larger than data
-  plot <- plot_top_gwas_hits(data, top_n = 100)
+  plot <- plotTopGwasHits(data, top_n = 100)
   expect_s3_class(plot, "ggplot")
 })
 
-test_that("plot_gwas_summary creates ggplot object", {
-  data <- get_celiac_gwas(fetch = FALSE)
+test_that("plotGwasSummary creates ggplot object", {
+  data <- getCeliacGwas(fetch = FALSE)
   
-  plot <- plot_gwas_summary(data)
+  plot <- plotGwasSummary(data)
   expect_s3_class(plot, "ggplot")
   expect_s3_class(plot, "gg")
 })
 
 test_that("GWAS data has reasonable p-values", {
-  data <- get_celiac_gwas(fetch = FALSE)
+  data <- getCeliacGwas(fetch = FALSE)
   
   # Check p-values are numeric and in reasonable range
   expect_type(data$p_value, "double")
@@ -82,8 +82,8 @@ test_that("GWAS functions work with real data structure", {
   )
   
   # Test that plotting functions work with this structure
-  plot1 <- plot_top_gwas_hits(mock_gwas_data)
-  plot2 <- plot_gwas_summary(mock_gwas_data)
+  plot1 <- plotTopGwasHits(mock_gwas_data)
+  plot2 <- plotGwasSummary(mock_gwas_data)
   
   expect_s3_class(plot1, "ggplot")
   expect_s3_class(plot2, "ggplot")

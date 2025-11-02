@@ -48,7 +48,7 @@ geneEvidenceView <- function(gene,
   if (show_expression) {
     if (requireNamespace("CeDExplorer", quietly = TRUE)) {
       tryCatch({
-        expr_plot <- expression_boxplot(gene)
+        expr_plot <- expressionBoxplot(gene)
         if (!is.null(expr_plot)) {
           expr_plot <- expr_plot +
             ggplot2::labs(title = paste("Expression:", gene)) +
@@ -65,7 +65,7 @@ geneEvidenceView <- function(gene,
   if (show_gwas) {
     tryCatch({
       # Load GWAS data and create a focused plot around the gene
-      gwas_plot <- create_gwas_gene_highlight(gene)
+      gwas_plot <- createGwasGeneHighlight(gene)
       if (!is.null(gwas_plot)) {
         plot_list[["gwas"]] <- gwas_plot
       }
@@ -79,9 +79,9 @@ geneEvidenceView <- function(gene,
     if (requireNamespace("igraph", quietly = TRUE)) {
       tryCatch({
         # Get genes that interact with our target gene
-        network_genes <- get_interacting_genes(gene)
+        network_genes <- getInteractingGenes(gene)
         if (length(network_genes) > 0) {
-          network_plot <- plot_gene_network(network_genes) +
+          network_plot <- plotGeneNetwork(network_genes) +
             ggplot2::labs(title = paste("Network:", gene)) +
             ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
           plot_list[["network"]] <- network_plot
@@ -95,7 +95,7 @@ geneEvidenceView <- function(gene,
   # 4. HLA Associations
   if (show_hla) {
     tryCatch({
-      hla_plot <- create_hla_association_plot(gene)
+      hla_plot <- createHlaAssociationPlot(gene)
       if (!is.null(hla_plot)) {
         plot_list[["hla"]] <- hla_plot
       }
@@ -131,7 +131,7 @@ geneEvidenceView <- function(gene,
 #' @return ggplot2 object or NULL
 #' @keywords internal
 #' @importFrom utils data
-create_gwas_gene_highlight <- function(gene) {
+createGwasGeneHighlight <- function(gene) {
   tryCatch({
     # Load GWAS data
     data("celiac_gwas_example", package = "CeDExplorer", envir = environment())
@@ -175,7 +175,7 @@ create_gwas_gene_highlight <- function(gene) {
 #' @keywords internal
 #' @importFrom utils data
 #' @importFrom utils head
-get_interacting_genes <- function(gene) {
+getInteractingGenes <- function(gene) {
   tryCatch({
     data("ppi_data", package = "CeDExplorer", envir = environment())
 
@@ -204,7 +204,7 @@ get_interacting_genes <- function(gene) {
 #' @param gene Gene symbol
 #' @return ggplot2 object or NULL
 #' @keywords internal
-create_hla_association_plot <- function(gene) {
+createHlaAssociationPlot <- function(gene) {
   tryCatch({
     # Check if it's an HLA gene
     if (grepl("^HLA-", gene)) {
@@ -241,7 +241,7 @@ create_hla_association_plot <- function(gene) {
 #' @param gene Gene symbol
 #' @return Data.frame with summary stats
 #' @keywords internal
-get_gene_summary <- function(gene) {
+getGeneSummary <- function(gene) {
   # This would typically query various databases
   # For now, return example data
   data.frame(

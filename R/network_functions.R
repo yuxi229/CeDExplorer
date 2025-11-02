@@ -18,13 +18,13 @@
 #' \dontrun{
 #' # Basic network with HLA genes
 #' genes <- c("HLA-DQA1", "HLA-DQB1", "HLA-DRA", "HLA-DRB1")
-#' plot_gene_network(genes)
+#' plotGeneNetwork(genes)
 #'
 #' # Larger network with cytokine signaling
 #' genes <- c("HLA-DQA1", "IL2", "IL2RA", "STAT1", "IFNG", "TNF")
-#' plot_gene_network(genes, min_score = 0.5, layout = "circle")
+#' plotGeneNetwork(genes, min_score = 0.5, layout = "circle")
 #' }
-plot_gene_network <- function(genes, min_score = 0.4, layout = "fr",
+plotGeneNetwork <- function(genes, min_score = 0.4, layout = "fr",
                               color_by = "type", show_labels = TRUE) {
 
   # Check required packages

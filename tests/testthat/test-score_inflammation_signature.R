@@ -1,8 +1,8 @@
-test_that("score_inflammation_signature returns expected structure", {
+test_that("scoreInflammationSignature returns expected structure", {
   data("example_expression_matrix", package = "CeDExplorer")
   data("example_metadata", package = "CeDExplorer")
 
-  res <- score_inflammation_signature(
+  res <- scoreInflammationSignature(
     dataset = example_expression_matrix,
     signature = "IFN_gamma",
     plot = TRUE

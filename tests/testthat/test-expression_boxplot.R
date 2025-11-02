@@ -1,10 +1,10 @@
-# tests/testthat/test-expression_boxplot.R
+# tests/testthat/test-expressionBoxplot.R
 
-test_that("expression_boxplot produces correct plot structure", {
+test_that("expressionBoxplot produces correct plot structure", {
   skip_if_not_installed("ggplot2")
 
   # Test basic plot creation
-  p <- expression_boxplot("HLA-DQA1")
+  p <- expressionBoxplot("HLA-DQA1")
 
   # Test plot is ggplot object
   expect_s3_class(p, "ggplot")
@@ -20,39 +20,39 @@ test_that("expression_boxplot produces correct plot structure", {
   expect_equal(p$labels$y, "Expression level")
 })
 
-test_that("expression_boxplot data filtering works correctly", {
+test_that("expressionBoxplot data filtering works correctly", {
   skip_if_not_installed("ggplot2")
 
   data("example_expression", package = "CeDExplorer")
 
   # Test that only the specified gene is plotted
-  p <- expression_boxplot("HLA-DQA1", dataset = example_expression)
+  p <- expressionBoxplot("HLA-DQA1", dataset = example_expression)
   plotted_genes <- unique(p$data$gene)
   expect_equal(plotted_genes, "HLA-DQA1")
   expect_equal(length(plotted_genes), 1)
 })
 
-test_that("expression_boxplot plot types work", {
+test_that("expressionBoxplot plot types work", {
   skip_if_not_installed("ggplot2")
 
   # Test boxplot (default)
-  p_box <- expression_boxplot("HLA-DQA1", violin = FALSE)
+  p_box <- expressionBoxplot("HLA-DQA1", violin = FALSE)
   expect_s3_class(p_box, "ggplot")
 
   # Test violin plot
-  p_violin <- expression_boxplot("HLA-DQA1", violin = TRUE)
+  p_violin <- expressionBoxplot("HLA-DQA1", violin = TRUE)
   expect_s3_class(p_violin, "ggplot")
 
   # Both should have the same data
   expect_equal(nrow(p_box$data), nrow(p_violin$data))
 })
 
-test_that("expression_boxplot handles different conditions", {
+test_that("expressionBoxplot handles different conditions", {
   skip_if_not_installed("ggplot2")
 
   data("example_expression", package = "CeDExplorer")
 
-  p <- expression_boxplot("HLA-DQA1", dataset = example_expression)
+  p <- expressionBoxplot("HLA-DQA1", dataset = example_expression)
 
   # Check that both conditions are present
   conditions <- unique(p$data$condition)
@@ -61,21 +61,21 @@ test_that("expression_boxplot handles different conditions", {
   expect_equal(length(conditions), 2)
 })
 
-test_that("expression_boxplot handles edge cases", {
+test_that("expressionBoxplot handles edge cases", {
   skip_if_not_installed("ggplot2")
 
   data("example_expression", package = "CeDExplorer")
 
   # Test with non-existent gene
   expect_warning(
-    result <- expression_boxplot("NONEXISTENT_GENE", dataset = example_expression),
+    result <- expressionBoxplot("NONEXISTENT_GENE", dataset = example_expression),
     "not found in dataset"
   )
   expect_null(result)
 
   # Test error for missing gene argument
   expect_error(
-    expression_boxplot(),
+    expressionBoxplot(),
     "Please provide a gene symbol"
   )
 })

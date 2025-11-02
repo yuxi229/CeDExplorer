@@ -26,34 +26,34 @@ library(CeDExplorer)
 ### Get GWAS Data
 ```{r}
 library(CeDExplorer)
-gwas_data <- get_celiac_gwas(fetch = TRUE)
+gwas_data <- getCeliacGwas(fetch = TRUE)
 cat("Retrieved", nrow(gwas_data), "associations from GWAS Catalog\n")
 ```
 
 ### Top GWAS Hits and GWAS Summary
 ```{r}
-plot_top_gwas_hits(gwas_data, top_n = 15, 
+plotTopGwasHits(gwas_data, top_n = 15, 
                    title = "Top Celiac Disease GWAS Associations")
-plot_gwas_summary(gwas_data)
+plotGwasSummary(gwas_data)
 ```
 
 ## Gene Expression Analysis
 
 ```{r}
-expression_boxplot("HLA-DQA1", violin = TRUE)
+expressionBoxplot("HLA-DQA1", violin = TRUE)
 ```
 
 ## Network Analysis
 
 ```{r}
 genes <- c("HLA-DQA1", "HLA-DQB1", "IL2", "STAT1")
-plot_gene_network(genes)
+plotGeneNetwork(genes)
 ```
 
 ## HLA Associations
 
 ```{r}
-hla_interaction_plot("HLA-DQA1")
+hlaInteractionPlot("HLA-DQA1")
 ```
 
 ## Composite Dashboard

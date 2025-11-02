@@ -5,7 +5,7 @@
 #' @importFrom gwasrapidd get_studies get_associations
 #' @importFrom dplyr left_join distinct
 #' @export
-get_celiac_gwas <- function(fetch = FALSE, force_fetch = FALSE) {
+getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
   
   if(fetch || force_fetch) {
     message("Fetching celiac disease GWAS data from GWAS Catalog...")
@@ -82,7 +82,7 @@ get_celiac_gwas <- function(fetch = FALSE, force_fetch = FALSE) {
     }, error = function(e) {
       warning("Failed to fetch from GWAS Catalog: ", e$message, 
               "\nReturning bundled example dataset.")
-      return(get_celiac_gwas(fetch = FALSE))
+      return(getCeliacGwas(fetch = FALSE))
     })
     
   } else {
@@ -105,13 +105,13 @@ get_celiac_gwas <- function(fetch = FALSE, force_fetch = FALSE) {
 
 
 #' Plot GWAS summary (volcano plot) since we lack chromosome data for Manhattan plot
-#' @param gwas_data GWAS data from get_celiac_gwas()
+#' @param gwas_data GWAS data from getCeliacGwas()
 #' @param title Plot title
 #' @param significance_level Genome-wide significance level
 #' @import ggplot2
 #' @importFrom dplyr arrange desc
 #' @export
-plot_gwas_summary <- function(gwas_data, title = "Celiac Disease GWAS Summary", 
+plotGwasSummary <- function(gwas_data, title = "Celiac Disease GWAS Summary", 
                               significance_level = 5e-8) {
   
   # Calculate -log10 p-values
@@ -136,12 +136,12 @@ plot_gwas_summary <- function(gwas_data, title = "Celiac Disease GWAS Summary",
 }
 
 #' Plot top GWAS hits with gene labels
-#' @param gwas_data GWAS data from get_celiac_gwas()
+#' @param gwas_data GWAS data from getCeliacGwas()
 #' @param top_n Number of top hits to display
 #' @param title Plot title
 #' @import ggplot2
 #' @export
-plot_top_gwas_hits <- function(gwas_data, top_n = 20, title = "Top Celiac Disease GWAS Hits") {
+plotTopGwasHits <- function(gwas_data, top_n = 20, title = "Top Celiac Disease GWAS Hits") {
   
   # Sort by p-value and take top hits using base R
   gwas_data_sorted <- gwas_data[order(gwas_data$p_value), ]

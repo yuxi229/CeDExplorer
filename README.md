@@ -14,7 +14,9 @@ multiple data types in celiac disease research by combining GWAS summary
 statistics, gene expression data, and protein interaction networks into
 a unified workflow.
 
-This package was developed using R version 4.3.2 on macOS platform.
+This package was developed using R version: 4.5.1 (2025-06-13) on macOS
+platform: aarch64-apple-darwin20 and running under: macOS Sequoia
+15.6.1.
 
 ## Installation
 
@@ -39,17 +41,17 @@ browseVignettes("CeDExplorer")
 
 ### Available Functions:
 
-- `get_celiac_gwas()`: Retrieve celiac disease GWAS summary statistics
-- `plot_top_gwas_hits()`: - Plots top GWAS associations as bar plot
-- `plot_gwas_summary()`: - Creates GWAS summary visualization
-- `expression_boxplot()`: Plot gene expression across conditions
-- `score_inflammation_signature()`: Calculate inflammation signature
+- `getCeliacGwas()`: Retrieve celiac disease GWAS summary statistics
+- `plotTopGwasHits()`: - Plots top GWAS associations as bar plot
+- `plotGwasSummary()`: - Creates GWAS summary visualization
+- `expressionBoxplot()`: Plot gene expression across conditions
+- `scoreInflammationSignature()`: Calculate inflammation signature
   scores
-- `plot_gene_network()`: Visualize protein-protein interaction networks
-- `hla_interaction_plot()`: Plot HLA allele frequency vs gene expression
+- `plotGeneNetwork()`: Visualize protein-protein interaction networks
+- `hlaInteractionPlot()`: Plot HLA allele frequency vs gene expression
 - `geneEvidenceView()`: Composite dashboard for gene evidence
   integration
-- `map_to_pathways()`: Map genes to pathways
+- `mapToPathways()`: Map genes to pathways
 
 <figure>
 <img src="man/figures/package_overview.png" alt="Package Overview" />

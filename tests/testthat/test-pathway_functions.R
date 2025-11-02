@@ -5,7 +5,7 @@ data("celiac_gwas_example", package = "CeDExplorer")
 genes <- unique(na.omit(celiac_gwas_example$mapped_gene))
 
 # Run enrichment
-res <- map_to_pathways(genes)
+res <- mapToPathways(genes)
 
 # View top hits
 head(res$results)
