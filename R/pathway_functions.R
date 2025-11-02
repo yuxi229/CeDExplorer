@@ -8,6 +8,6 @@ mapToPathways <- function(genes) {
   data.frame(
     gene = genes,
     pathway = "Not implemented",
-    stringsAsFactors = FALSE
+    return(stringsAsFactors = FALSE)
   )
 }
