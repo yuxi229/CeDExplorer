@@ -25,7 +25,7 @@ To install the latest version of the package:
 ``` r
 install.packages("devtools")
 library("devtools")
-devtools::install_github("yuxi-wang-98/CeDExplorer", build_vignettes = TRUE)
+devtools::install_github("yuxi229/CeDExplorer", build_vignettes = TRUE)
 library("CeDExplorer")
 ```
 
@@ -41,9 +41,9 @@ browseVignettes("CeDExplorer")
 
 ### Available Functions:
 
-- `getCeliacGwas()`: Retrieve celiac disease GWAS summary statistics
-- `plotTopGwasHits()`: - Plots top GWAS associations as bar plot
-- `plotGwasSummary()`: - Creates GWAS summary visualization
+- `getCeliacGwas()`: Retrieve celiac disease GWAS summary statistics  
+- `plotTopGwasHits()`: Plot top GWAS associations as bar plot
+- `plotGwasSummary()`: Create GWAS summary visualization
 - `expressionBoxplot()`: Plot gene expression across conditions
 - `scoreInflammationSignature()`: Calculate inflammation signature
   scores
