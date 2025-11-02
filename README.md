@@ -1,7 +1,7 @@
 
 # CeDExplorer
 
-Celiac Disease Gene Expression and GWAS Analysis Toolkit
+Celiac Disease Gene Expression and GWAS Analysis Toolkit.
 
 ## Description
 
