@@ -1,6 +1,6 @@
 ---
 title: "CeDExplorer Tutorial"
-author: "Yuxi Wang"
+author: "Yuxi Zhang"
 date: "2025-01-01"
 output: rmarkdown::html_vignette
 vignette: >
@@ -27,8 +27,11 @@ library(CeDExplorer)
 ```{r}
 library(CeDExplorer)
 gwas_data <- getCeliacGwas(fetch = TRUE)
-cat("Retrieved", nrow(gwas_data), "associations from GWAS Catalog\n")
 ```
+Fetches all celiac-disease–related SNPs from GWAS Catalog
+
+Includes genomic position, p-values, risk alleles, and mapped genes
+
 
 ### Top GWAS Hits and GWAS Summary
 ```{r}
