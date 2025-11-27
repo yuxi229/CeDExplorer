@@ -18,7 +18,12 @@ Imports:
     gwasrapidd,
     dplyr,
     tidyr,
-    purrr
+    purrr,
+    stats, 
+    utils, 
+    shiny, 
+    shinydashboard, 
+    DT
 Suggests: 
     testthat,
     knitr,

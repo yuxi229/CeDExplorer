@@ -47,15 +47,14 @@ browseVignettes("CeDExplorer")
 - `expressionBoxplot()`: Plot gene expression across conditions
 - `scoreInflammationSignature()`: Calculate inflammation signature
   scores
-- `plotGeneNetwork()`: Visualize protein-protein interaction networks
 - `hlaInteractionPlot()`: Plot HLA allele frequency vs gene expression
-- `geneEvidenceView()`: Composite dashboard for gene evidence
-  integration
-- `mapToPathways()`: Map genes to pathways
 
 <figure>
-<img src="man/figures/package_overview.png" alt="Package Overview" />
-<figcaption aria-hidden="true">Package Overview</figcaption>
+<img src="inst/extdata/package_overview.png"
+alt="Package Overview, created in https://BioRender.com" />
+<figcaption aria-hidden="true">Package Overview, created in <a
+href="https://BioRender.com"
+class="uri">https://BioRender.com</a></figcaption>
 </figure>
 
 ## Contributions

@@ -40,12 +40,9 @@ browseVignettes("CeDExplorer")
 - `plotGwasSummary()`: Create GWAS summary visualization
 - `expressionBoxplot()`: Plot gene expression across conditions
 - `scoreInflammationSignature()`: Calculate inflammation signature scores
-- `plotGeneNetwork()`: Visualize protein-protein interaction networks
 - `hlaInteractionPlot()`: Plot HLA allele frequency vs gene expression
-- `geneEvidenceView()`: Composite dashboard for gene evidence integration
-- `mapToPathways()`: Map genes to pathways
 
-![Package Overview](man/figures/package_overview.png)
+![Package Overview, created in  https://BioRender.com](inst/extdata/package_overview.png)
 
 ## Contributions
 
