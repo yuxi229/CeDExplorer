@@ -3,18 +3,30 @@
 \docType{data}
 \name{example_expression_matrix}
 \alias{example_expression_matrix}
-\title{Example expression matrix}
+\title{Example Expression Matrix}
 \format{
-A matrix with 12 rows (genes) and 10 columns (samples)
+A matrix with 200 rows (genes) and 50 columns (samples)
+}
+\source{
+Simulated data following typical RNA-seq count distributions
+and celiac disease expression patterns
 }
 \usage{
 example_expression_matrix
 }
 \description{
-A simulated gene expression matrix for demonstration purposes.
+A simulated gene expression matrix in typical RNA-seq analysis format
+with genes as rows and samples as columns.
 }
-\examples{
-data(example_expression_matrix)
-head(example_expression_matrix)
+\references{
+Robinson, M. D., McCarthy, D. J., & Smyth, G. K. (2010). edgeR: A
+Bioconductor package for differential expression analysis of digital gene
+expression data. Bioinformatics, 26(1), 139-140.
+https://doi.org/10.1093/bioinformatics/btp616
+
+Ritchie, M. E., Phipson, B., Wu, D., Hu, Y., Law, C. W., Shi, W., & Smyth,
+G. K. (2015). limma powers differential expression analyses for
+RNA-sequencing and microarray studies. Nucleic Acids Research, 43(7), e47.
+https://doi.org/10.1093/nar/gkv007
 }
 \keyword{datasets}

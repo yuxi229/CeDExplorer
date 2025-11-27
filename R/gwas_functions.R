@@ -2,6 +2,21 @@
 #' @param fetch Logical, whether to fetch from GWAS Catalog or use bundled data
 #' @param force_fetch Logical, whether to force fetching even if bundled data exists
 #' @return Data frame with GWAS data
+#' 
+#' @references
+#' MacDonald, J. R., Zuber, V., & Ong, J. S. (2020). gwasrapidd: An R 
+#' package to query, download and wrangle GWAS Catalog data. 
+#' Bioinformatics, 36(2), 649-650. 
+#' https://doi.org/10.1093/bioinformatics/btz605
+#'
+#' Trynka, G., Hunt, K. A., Bockett, N. A., Romanos, J., Mistry, V., 
+#' Szperl, A., Bakker, S. F., Bardella, M. T., Bhaw-Rosun, L., Castillejo, G., 
+#' de la Concha, E. G., de Almeida, R. C., Dias, K. R., van Diemen, C. C., 
+#' Dubois, P. C., Duerr, R. H., Edkins, S., Franke, L., Fransen, K., ... 
+#' van Heel, D. A. (2011). Dense genotyping identifies and localizes multiple 
+#' common and rare variant association signals in celiac disease. 
+#' Nature Genetics, 43(12), 1193-1201. https://doi.org/10.1038/ng.998
+#' 
 #' @importFrom gwasrapidd get_studies get_associations
 #' @importFrom dplyr left_join distinct
 #' @export
@@ -108,6 +123,12 @@ getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
 #' @param gwas_data GWAS data from getCeliacGwas()
 #' @param title Plot title
 #' @param significance_level Genome-wide significance level
+#' 
+#' @references
+#' Dudbridge, F., & Gusnanto, A. (2008). Estimation of significance 
+#' thresholds for genomewide association scans. *Genetic Epidemiology*, *32*(3), 
+#' 227-234. https://doi.org/10.1002/gepi.20297
+#' 
 #' @import ggplot2
 #' @importFrom dplyr arrange desc
 #' @export
@@ -139,6 +160,12 @@ plotGwasSummary <- function(gwas_data, title = "Celiac Disease GWAS Summary",
 #' @param gwas_data GWAS data from getCeliacGwas()
 #' @param top_n Number of top hits to display
 #' @param title Plot title
+#' 
+#' @references
+#' Sollid, L. M., & Jabri, B. (2013). Triggers and drivers of autoimmunity: 
+#' Lessons from coeliac disease. Nature Reviews Immunology, 13(4), 294-302.
+#' https://doi.org/10.1038/nri3407
+#' 
 #' @import ggplot2
 #' @export
 plotTopGwasHits <- function(gwas_data, top_n = 20, title = "Top Celiac Disease GWAS Hits") {

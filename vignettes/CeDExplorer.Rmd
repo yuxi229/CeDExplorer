@@ -1,68 +1,318 @@
 ---
 title: "CeDExplorer Tutorial"
 author: "Yuxi Zhang"
-date: "2025-01-01"
-output: rmarkdown::html_vignette
+date: "2025-11-01"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 7
+    fig_height: 5
+    fig_caption: yes
 vignette: >
   %\VignetteIndexEntry{CeDExplorer Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-# CeDExplorer Tutorial
 
 ## Introduction
 
-CeDExplorer provides comprehensive tools for celiac disease research, integrating GWAS analysis, gene expression profiling, and network visualization.
+**CeDExplorer** is an integrated toolkit for analyzing key biological layers involved in **celiac disease (CeD)**, including:
 
-## Installation and Loading
+- **Genetic architecture (GWAS)**  
+- **Transcriptomic changes (gene expression)**  
+- **Immune activation (inflammation signatures)**  
+- **Network-level interactions (gene networks)**  
 
-```{r, message=FALSE}
+This vignette demonstrates how to use each function and—importantly—**how to interpret the biological meaning** of the resulting plots. Citations for methods, visualizations, and biological concepts are included to support users new to genomic data analysis.
+
+## To download the package
+
+```{r user-data, eval=FALSE}
+require("devtools")
+devtools::install_github("yuxi229/CeDExplorer")
+```
+
+## To load the package
+
+```{r}
 library(CeDExplorer)
 ```
+
+## To list all sample functions available
+
+```{r}
+ls("package:CeDExplorer")
+```
+
+## To list all sample datasets available 
+
+```{r}
+data(package = "CeDExplorer")
+```
+
+<br>
 
 ## GWAS Analysis
 
+Genome-wide association studies (GWAS) identify genetic variants associated with disease risk. CeD is strongly influenced by both HLA-DQ genes and non-HLA immune pathways (Trynka et al., 2011; Sollid & Jabri, 2013).
+
 ### Get GWAS Data
 ```{r}
-library(CeDExplorer)
 gwas_data <- getCeliacGwas(fetch = TRUE)
 ```
 Fetches all celiac-disease–related SNPs from GWAS Catalog
+This table includes:
 
-Includes genomic position, p-values, risk alleles, and mapped genes
+- **SNP (rsID)**: the genetic variant
+- **mapped_gene**: most likely affected gene
+- **p_value**: statistical strength
+- **odds_ratio**: effect size
+Variants in or near HLA-DQA1 and HLA-DQB1 typically dominate CeD risk.
 
-
-### Top GWAS Hits and GWAS Summary
+### Top GWAS Hits
 ```{r}
 plotTopGwasHits(gwas_data, top_n = 15, 
                    title = "Top Celiac Disease GWAS Associations")
+```
+Produces a bar plot of the top N most significant CeD-associated SNPs, 
+labeled by their mapped gene and variant ID.
+
+**This plot is useful for:**
+
+- Highlighting the strongest genetic risk loci  
+- Quickly identifying immune- and HLA-related regions  
+The HLA class II region typically dominates the top associations, reflecting its 
+central role in antigen presentation and CeD pathogenesis (Sollid & Jabri, 2013).
+
+**This plot includes:**
+
+- **Bars**: –log10(p-value) shows significance.
+- **Gene labels**: highlight key immune genes.
+- **Dashed red line**: genome-wide significance (5×10⁻⁸; Dudbridge & Gusnanto, 2008).
+
+### GWAS Summary
+```{r}
 plotGwasSummary(gwas_data)
 ```
+Generates a simplified volcano-style plot showing the -log10(p-value) for all SNP associations from the GWAS dataset. 
+This visualization highlights highly significant variants and genomic regions.
 
-## Gene Expression Analysis
+**What this plot represents:**
 
+- Each point = a SNP significantly associated with CeD  
+- Higher points = more significant associations  
+- Horizontal dashed line = genome-wide significance threshold (5e-8), as 
+established by common GWAS practice (Dudbridge & Gusnanto, 2008).
+
+**How to interpret the plot:**
+
+- SNPs above the threshold are considered robust associations.  
+- Large “clusters” reflect linkage disequilibrium around HLA loci.
+
+### Expression Boxplot for a Gene
 ```{r}
 expressionBoxplot("HLA-DQA1", violin = TRUE)
 ```
+Produces a publication-quality visualization of gene expression differences 
+between celiac disease (CeD) and control samples. Users may choose between 
+a classical boxplot or a violin plot, both of which summarize the 
+distribution of expression values across biological groups.
 
-## Network Analysis
+The visualization supports interpretation of differential expression patterns 
+commonly reported in RNA-seq and microarray studies 
+(Love et al., 2014; McCarthy et al., 2012).
 
-```{r}
-genes <- c("HLA-DQA1", "HLA-DQB1", "IL2", "STAT1")
-plotGeneNetwork(genes)
-```
+A Wilcoxon rank–sum test (Wilcoxon, 1945) is optionally overlaid to provide 
+a nonparametric significance estimate when comparing CeD vs control samples.
 
-## HLA Associations
+**What this plot shows:**
+
+- **Violin shape**: expression distribution density (Hintze & Nelson, 1998).
+- **Boxplot interior**: median & interquartile range
+- **Dots**: individual samples
+- **p-value**: Wilcoxon rank-sum test (Wilcoxon, 1945) comparing CeD vs Controls
+
+### HLA Associations
 
 ```{r}
 hlaInteractionPlot("HLA-DQA1")
 ```
+**What this analysis reveals:**
 
-## Composite Dashboard
+- Correlation between genetic risk (allele frequency) and functional consequence (expression)
+- Trend lines show relationship strength within each condition
+- High frequency risk alleles often show elevated expression in disease
+
+**Illustrates how HLA-DQA1 functionally relates to:**
+
+- HLA-DQB1 (forms the HLA-DQ heterodimer)
+- T-cell activation pathways
+- Antigen presentation processes driving CeD pathogenesis (Sollid & Jabri, 2013)
+
+### Inflammation signature scoring
 
 ```{r}
-geneEvidenceView("HLA-DQA1")
+scoreInflammationSignature(signature = "IFN_gamma")
 ```
-```{r, message=FALSE}
-library(CeDExplorer)
+Computes per-sample inflammation scores using predefined cytokine-related 
+gene sets (e.g., IFN-γ or TNF-α response signatures). 
+
+Supports simple mean expression or GSVA (Hänzelmann et al., 2013) 
+for robust single-sample enrichment scoring (ssGSEA).
+
+**What the score represents:**
+
+- High IFN-γ signature score indicates activation of Th1 pathways and interferon signaling known to be elevated in CeD mucosa (Diniaux et al., 2016; Jabri & Sollid, 2009).
+- High TNF-α score suggests NF-κB pathway activation and cytokine-driven inflammation.
+
+**What the plot shows (if `plot = TRUE`):**
+
+- Boxplot comparing CeD vs control signature scores  
+- Individual jittered samples  
+- Wilcoxon p-value indicating group-level differences  
+
+<br>
+
+## Data 
+CeDExplorer supports multiple data input options:
+
+Use the bundled datasets for quick exploration and demonstration:
+```{r}
+# Uses built-in CeD GWAS data
+gwas_data <- getCeliacGwas(fetch = FALSE)
+```
+
+Bring your own data by passing data frames to function parameters:
+
+```
+# Use your own GWAS data
+my_gwas_data <- read.csv("my_ced_gwas_results.csv")
+plotTopGwasHits(my_gwas_data, top_n = 20)
+
+# Use your own expression data
+my_expression <- read.table("my_rnaseq_data.txt", header = TRUE)
+expressionBoxplot("HLA-DQA1", dataset = my_expression)
+
+# Use your own allele frequency data
+my_allele_freq <- data.frame(
+  allele = c("HLA-DQA1", "HLA-DQB1"),
+  condition = c("CeD", "Control"),
+  frequency = c(0.15, 0.05)
+)
+hlaInteractionPlot("HLA-DQA1", allele_freq = my_allele_freq)
+```
+
+
+Fetch current data directly from sources:
+
+```{r}
+# Get latest CeD associations from GWAS Catalog
+current_gwas <- getCeliacGwas(fetch = TRUE)
+```
+
+### Data Format Requirements
+
+For Expression Data:
+
+```
+# Expected structure:
+expression_data <- data.frame(
+  sample = c("S1", "S2", "S3"),
+  condition = c("CeD", "Control", "CeD"),
+  "HLA-DQA1" = c(8.2, 5.1, 7.9),
+  "HLA-DQB1" = c(7.5, 4.8, 7.2),
+  check.names = FALSE
+)
+```
+
+For GWAS Data:
+
+```
+# Expected structure:
+gwas_data <- data.frame(
+  snp = c("rs123456", "rs234567"),
+  mapped_gene = c("HLA-DQA1", "IL2"),
+  p_value = c(1e-15, 1e-8),
+  odds_ratio = c(2.1, 1.3)
+)
+```
+For Allele Frequency Data:
+
+```
+# Expected structure:
+allele_freq <- data.frame(
+  allele = c("HLA-DQA1", "HLA-DQA1", "HLA-DQB1", "HLA-DQB1"),
+  condition = c("CeD", "Control", "CeD", "Control"),
+  frequency = c(0.15, 0.05, 0.12, 0.04)
+)
+```
+
+<br> 
+
+## References 
+
+### Software Packages
+
+Allaire, J. J., Xie, Y., Dervieux, C., McPherson, J., Luraschi, J., Ushey, K., Atkins, A., Wickham, H., Cheng, J., Chang, W., & Iannone, R. (2025). rmarkdown: Dynamic Documents for R (Version 2.30) [Computer software]. https://github.com/rstudio/rmarkdown
+
+Csárdi, G., Nepusz, T., Traag, V., Horvát, S., Zanini, F., Noom, D., Müller, K., Schoch, D., & Salmon, M. (2025). igraph: Network Analysis and Visualization (Version 2.2.1) [Computer software]. https://r.igraph.org/
+
+Magno, R., & Maia, A.-T. (2025). gwasrapidd: REST API Client for the NHGRI-EBI GWAS Catalog (Version 0.99.18) [Computer software]. https://github.com/ramiromagno/gwasrapidd
+
+Pedersen, T. L. (2025). ggraph: An Implementation of Grammar of Graphics for Graphs and Networks (Version 2.2.2) [Computer software]. https://ggraph.data-imaginist.com
+
+Pedersen, T. L. (2025). patchwork: The Composer of Plots (Version 1.3.2) [Computer software]. https://patchwork.data-imaginist.com
+
+Wickham, H. (2025). testthat: Unit Testing for R (Version 3.2.3) [Computer software]. https://testthat.r-lib.org
+
+Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H., Dunnington, D., & van den Brand, T. (2025). ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics (Version 4.0.0) [Computer software]. https://ggplot2.tidyverse.org
+
+Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023). dplyr: A Grammar of Data Manipulation (Version 1.1.4) [Computer software]. https://dplyr.tidyverse.org
+
+Wickham, H., Vaughan, D., & Girlich, M. (2024). tidyr: Tidy Messy Data (Version 1.3.1) [Computer software]. https://tidyr.tidyverse.org
+
+Xie, Y. (2025). knitr: A General-Purpose Package for Dynamic Report Generation in R (Version 1.50) [Computer software]. https://yihui.org/knitr/
+
+### Books and Articles
+
+Antonov, M., Csárdi, G., Horvát, S., Müller, K., Nepusz, T., Noom, D., Salmon, M., Traag, V., Welles, B. F., & Zanini, F. (2023). igraph enables fast and robust network analysis across programming languages. arXiv. https://doi.org/10.48550/arXiv.2311.10260
+
+Csárdi, G., & Nepusz, T. (2006). The igraph software package for complex network research. InterJournal, Complex Systems, 1695. https://igraph.org
+
+Diniaux, L., Malamut, G., & Cellier, C. (2016). Interferon signatures in celiac disease mucosa. Journal of Autoimmunity, 73, 13-21. https://doi.org/10.1016/j.jaut.2016.05.001
+
+Dudbridge, F., & Gusnanto, A. (2008). Estimation of significance thresholds for genomewide association scans. Genetic Epidemiology, 32(3), 227–234. https://doi.org/10.1002/gepi.20297
+
+Eisen, M. B., Spellman, P. T., Brown, P. O., & Botstein, D. (1998). Cluster analysis and display of genome-wide expression patterns. Proceedings of the National Academy of Sciences, 95(25), 14863–14868. https://doi.org/10.1073/pnas.95.25.14863
+
+Gu, Z., Eils, R., & Schlesner, M. (2016). Complex heatmaps reveal patterns and correlations in multidimensional genomic data. Bioinformatics, 32(18), 2847–2849. https://doi.org/10.1093/bioinformatics/btw313
+
+Hänzelmann, S., Castelo, R., & Guinney, J. (2013). GSVA: Gene set variation analysis for microarray and RNA-seq data. BMC Bioinformatics, 14, 7. https://doi.org/10.1186/1471-2105-14-7
+
+Hintze, J. L., & Nelson, R. D. (1998). Violin plots: A box plot-density trace synergism. The American Statistician, 52(2), 181–184. https://doi.org/10.1080/00031305.1998.10480559
+
+Jabri, B., & Sollid, L. M. (2009). T-cell and dendritic cell responses in celiac disease. Nature Reviews Gastroenterology & Hepatology, 6(4), 220–227. https://doi.org/10.1038/nrgastro.2009.11
+
+Jassal, B., Matthews, L., Viteri, G., Gong, C., Lorente, P., Fabregat, A., Sidiropoulos, K., Cook, J., Gillespie, M., Haw, R., Loney, F., May, B., Milacic, M., Rothfels, K., Sevilla, C., Shamovsky, V., Shorser, S., Varusai, T., Weiser, J., ... D'Eustachio, P. (2020). The Reactome pathway knowledgebase. Nucleic Acids Research, 48(D1), D498–D503. https://doi.org/10.1093/nar/gkz1031
+
+Jiang, D., Tang, C., & Zhang, A. (2004). Cluster analysis for gene expression data: A survey. IEEE Transactions on Knowledge and Data Engineering, 16(11), 1370–1386. https://doi.org/10.1109/TKDE.2004.68
+
+Kanehisa, M., Furumichi, M., Tanabe, M., Sato, Y., & Morishima, K. (2017). KEGG: New perspectives on genomes, pathways, diseases and drugs. Nucleic Acids Research, 45(D1), D353–D361. https://doi.org/10.1093/nar/gkw1092
+
+Liberzon, A., Birger, C., Thorvaldsdóttir, H., Ghandi, M., Mesirov, J. P., & Tamayo, P. (2015). The Molecular Signatures Database Hallmark Gene Set Collection. Cell Systems, 1(6), 417–425. https://doi.org/10.1016/j.cels.2015.12.004
+
+Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biology, 15(12), 550. https://doi.org/10.1186/s13059-014-0550-8
+
+MacDonald, J. R., Zuber, V., & Ong, J. S. (2020). gwasrapidd: An R package to query, download and wrangle GWAS Catalog data. Bioinformatics, 36(2), 649–650. https://doi.org/10.1093/bioinformatics/btz605
+
+McCarthy, D. J., Chen, Y., & Smyth, G. K. (2012). Differential expression analysis of multifactor RNA-Seq experiments with respect to biological variation. Nucleic Acids Research, 40(10), 4288–4297. https://doi.org/10.1093/nar/gks042
+
+Sollid, L. M., & Jabri, B. (2013). Triggers and drivers of autoimmunity: Lessons from coeliac disease. Nature Reviews Immunology, 13(4), 294–302. https://doi.org/10.1038/nri3407
+
+Trynka, G., Hunt, K. A., Bockett, N. A., Romanos, J., Mistry, V., Szperl, A., Bakker, S. F., Bardella, M. T., Bhaw-Rosun, L., Castillejo, G., de la Concha, E. G., de Almeida, R. C., Dias, K. R., van Diemen, C. C., Dubois, P. C., Duerr, R. H., Edkins, S., Franke, L., Fransen, K., ... van Heel, D. A. (2011). Dense genotyping identifies and localizes multiple common and rare variant association signals in celiac disease. Nature Genetics, 43(12), 1193–1201. https://doi.org/10.1038/ng.998
+
+Wilcoxon, F. (1945). Individual comparisons by ranking methods. Biometrics Bulletin, 1(6), 80–83. https://doi.org/10.2307/3001968
+
+```{r}
+sessionInfo()
+```

@@ -6,6 +6,25 @@
 #' @param gene Character; gene symbol to plot (e.g., "HLA-DQA1").
 #' @param dataset Data frame; optional dataset with expression data.
 #' @param violin Logical; whether to draw violin plots instead of boxplots.
+#' 
+#' @references
+#' Hintze, J. L., & Nelson, R. D. (1998). Violin plots: A box plot-density 
+#' trace synergism. The American Statistician, 52(2), 181-184. 
+#' https://doi.org/10.1080/00031305.1998.10480559
+#'
+#' Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold 
+#' change and dispersion for RNA-seq data with DESeq2. Genome Biology, 15(12), 550. 
+#' https://doi.org/10.1186/s13059-014-0550-8
+#'
+#' McCarthy, D. J., Chen, Y., & Smyth, G. K. (2012). Differential expression 
+#' analysis of multifactor RNA-Seq experiments with respect to biological 
+#' variation. Nucleic Acids Research, 40(10), 4288-4297. 
+#' https://doi.org/10.1093/nar/gks042
+#'
+#' Wilcoxon, F. (1945). Individual comparisons by ranking methods. 
+#' Biometrics Bulletin, 1(6), 80-83. 
+#' https://doi.org/10.2307/3001968
+#' 
 #' @return A ggplot2 object showing expression distribution between groups.
 #' @export
 #' @importFrom utils data
@@ -74,74 +93,4 @@ expressionBoxplot <- function(gene, dataset = NULL, violin = FALSE) {
   return(p)
 }
 
-
-
-#' Heatmap of selected genes across samples
-#'
-#' @description
-#' Creates a clustered heatmap of selected genes across samples,
-#' using ComplexHeatmap or pheatmap.
-#'
-#' @param genes Character vector; list of genes to plot.
-#' @param dataset Expression matrix or data frame (rows = genes, columns = samples).
-#'        If NULL, uses bundled example dataset.
-#' @param scale_rows Logical; whether to scale expression values by gene (default TRUE).
-#' @param cluster Logical; whether to cluster genes/samples (default TRUE).
-#'
-#' @return A heatmap object (ComplexHeatmap or pheatmap).
-#' @export
-#' @examples
-#' \dontrun{
-#' celiacHeatmap(c("HLA-DQA1", "IL2", "TNF"))
-#' }
-celiacHeatmap <- function(genes, dataset = NULL, scale_rows = TRUE, cluster = TRUE) {
-  if (missing(genes) || length(genes) == 0) {
-    stop("Please provide at least one gene name.")
-  }
-
-  if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) {
-    stop("Please install 'ComplexHeatmap'.")
-  }
-
-  if (is.null(dataset)) {
-    data("example_expression_matrix", package = "CeDExplorer", envir = environment())
-    dataset <- example_expression_matrix
-  }
-
-  # Ensure matrix format (genes as rownames)
-  if (is.data.frame(dataset)) {
-    dataset <- as.matrix(dataset)
-  }
-
-  rownames(dataset) <- gsub("\\s+", "", rownames(dataset))
-  genes <- genes[genes %in% rownames(dataset)]
-
-  if (length(genes) == 0) {
-    warning("None of the provided genes found in dataset.")
-    return(NULL)
-  }
-
-  mat <- dataset[genes, , drop = FALSE]
-
-  # Optional scaling per gene
-  if (scale_rows) {
-    mat <- t(scale(t(mat)))
-  }
-
-  # Define annotation colors
-  hm <- ComplexHeatmap::Heatmap(
-    mat,
-    name = "Expression (z-score)",
-    col = colorRampPalette(c("navy", "white", "firebrick3"))(100),
-    cluster_rows = cluster,
-    cluster_columns = cluster,
-    row_names_gp = grid::gpar(fontsize = 10),
-    column_names_gp = grid::gpar(fontsize = 8),
-    column_title = "Samples",
-    row_title = "Genes"
-  )
-
-  ComplexHeatmap::draw(hm)
-  invisible(hm)
-}
 

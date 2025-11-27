@@ -12,6 +12,15 @@
 #' @param method Character; scoring method ("mean" or "gsva"). Default "mean".
 #' @param plot Logical; whether to return a ggplot2 boxplot comparing CeD vs Control.
 #'
+#' @references
+#' Hanzelmann, S., Castelo, R., & Guinney, J. (2013). GSVA: Gene set 
+#' variation analysis for microarray and RNA-seq data. BMC Bioinformatics, 
+#' 14, 7. https://doi.org/10.1186/1471-2105-14-7
+#'
+#' Jabri, B., & Sollid, L. M. (2009). T-cell and dendritic cell responses 
+#' in celiac disease. Nature Reviews Gastroenterology & Hepatology, 6(4), 
+#' 220-227. https://doi.org/10.1038/nrgastro.2009.11
+#' 
 #' @return A list with elements:
 #' \describe{
 #'   \item{scores}{Named numeric vector of per-sample signature scores.}

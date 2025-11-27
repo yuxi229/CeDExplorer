@@ -20,3 +20,8 @@ plotGwasSummary(
 \description{
 Plot GWAS summary (volcano plot) since we lack chromosome data for Manhattan plot
 }
+\references{
+Dudbridge, F., & Gusnanto, A. (2008). Estimation of significance
+thresholds for genomewide association scans. \emph{Genetic Epidemiology}, \emph{32}(3),
+227-234. https://doi.org/10.1002/gepi.20297
+}

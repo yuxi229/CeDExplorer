@@ -17,3 +17,17 @@ Data frame with GWAS data
 \description{
 Get celiac disease GWAS data from GWAS Catalog
 }
+\references{
+MacDonald, J. R., Zuber, V., & Ong, J. S. (2020). gwasrapidd: An R
+package to query, download and wrangle GWAS Catalog data.
+Bioinformatics, 36(2), 649-650.
+https://doi.org/10.1093/bioinformatics/btz605
+
+Trynka, G., Hunt, K. A., Bockett, N. A., Romanos, J., Mistry, V.,
+Szperl, A., Bakker, S. F., Bardella, M. T., Bhaw-Rosun, L., Castillejo, G.,
+de la Concha, E. G., de Almeida, R. C., Dias, K. R., van Diemen, C. C.,
+Dubois, P. C., Duerr, R. H., Edkins, S., Franke, L., Fransen, K., ...
+van Heel, D. A. (2011). Dense genotyping identifies and localizes multiple
+common and rare variant association signals in celiac disease.
+Nature Genetics, 43(12), 1193-1201. https://doi.org/10.1038/ng.998
+}

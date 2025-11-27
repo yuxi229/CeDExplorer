@@ -11,7 +11,20 @@
 #' @param condition_col Character; column name in dataset indicating condition (default: "condition").
 #' @param point_size Numeric; size of points in scatter plot (default: 2).
 #' @param add_trend Logical; whether to add trend lines (default: TRUE).
+#' 
+#' @references
+#' Sollid, L. M., & Jabri, B. (2013). Triggers and drivers of autoimmunity: 
+#' Lessons from coeliac disease. Nature Reviews Immunology, 13(4), 294-302.
+#' https://doi.org/10.1038/nri3407
 #'
+#' Trynka, G., Hunt, K. A., Bockett, N. A., Romanos, J., Mistry, V., 
+#' Szperl, A., Bakker, S. F., Bardella, M. T., Bhaw-Rosun, L., Castillejo, G., 
+#' de la Concha, E. G., de Almeida, R. C., Dias, K. R., van Diemen, C. C., 
+#' Dubois, P. C., Duerr, R. H., Edkins, S., Franke, L., Fransen, K., ... 
+#' van Heel, D. A. (2011). Dense genotyping identifies and localizes multiple 
+#' common and rare variant association signals in celiac disease. 
+#' Nature Genetics, 43(12), 1193-1201. https://doi.org/10.1038/ng.998
+#' 
 #' @return A ggplot2 object showing HLA allele frequency vs gene expression.
 #' @export
 #' @importFrom utils data

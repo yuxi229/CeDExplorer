@@ -3,24 +3,32 @@
 \docType{data}
 \name{example_expression}
 \alias{example_expression}
-\title{Example expression dataset}
+\title{Example Gene Expression Data}
 \format{
-A data frame with 240 rows and 4 variables:
+A data frame with 1000 rows and 6 variables:
 \describe{
-\item{gene}{Gene symbol}
-\item{sample}{Sample identifier}
-\item{condition}{Condition, either 'CeD' or 'Control'}
-\item{expression}{Simulated expression value}
+\item{sample}{Sample identifier (S1-S1000)}
+\item{condition}{Condition, either "CeD" or "Control"}
+\item{HLA-DQA1}{HLA-DQA1 expression values}
+\item{HLA-DQB1}{HLA-DQB1 expression values}
+\item{IL2}{IL2 expression values}
+\item{IFNG}{IFNG expression values}
+}
+}
+\source{
+Simulated expression data modeled after:
+\itemize{
+\item Celiac disease transcriptomic studies
+\item Typical RNA-seq count distributions
+\item Established expression differences in immune genes
 }
 }
 \usage{
 example_expression
 }
 \description{
-A simulated dataset containing gene expression data for celiac disease and control samples.
-}
-\examples{
-data(example_expression)
-head(example_expression)
+A simulated dataset containing gene expression values for celiac disease
+and control samples. Data mimics RNA-seq expression patterns with
+biologically realistic distributions and condition-specific differences.
 }
 \keyword{datasets}

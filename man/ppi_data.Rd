@@ -24,16 +24,39 @@ A list with two components:
 }
 }
 }
+\source{
+Curated from STRING database, BioGRID, and literature on celiac disease
+immune pathways. Includes interactions relevant to antigen presentation,
+T-cell activation, and inflammatory signaling.
+}
 \usage{
 ppi_data
 }
 \description{
 A curated dataset containing protein-protein interactions for
-celiac disease-related genes.
+celiac disease-related genes. Includes interactions from immune signaling
+pathways, antigen presentation complexes, and inflammatory responses.
 }
 \examples{
 data(ppi_data)
 head(ppi_data$edges)
 head(ppi_data$nodes)
+}
+\references{
+Szklarczyk, D., Gable, A. L., Lyon, D., Junge, A., Wyder, S.,
+Huerta-Cepas, J., ... & Mering, C. V. (2019). STRING v11: Protein-protein
+association networks with increased coverage, supporting functional
+discovery in genome-wide experimental datasets. Nucleic Acids Research,
+47(D1), D607-D613. https://doi.org/10.1093/nar/gky1131
+
+Oughtred, R., Rust, J., Chang, C., Breitkreutz, B. J., Stark, C.,
+Willems, A., ... & Tyers, M. (2021). The BioGRID database: A comprehensive
+biomedical resource of curated protein, genetic, and chemical interactions.
+Protein Science, 30(1), 187-200. https://doi.org/10.1002/pro.3978
+
+Sollid, L. M., Qiao, S. W., Anderson, R. P., Gianfrani, C., & Koning, F.
+(2012). Nomenclature and listing of celiac disease relevant gluten T-cell
+epitopes restricted by HLA-DQ molecules. Immunogenetics, 64(6), 455-460.
+https://doi.org/10.1007/s00251-012-0599-z
 }
 \keyword{datasets}

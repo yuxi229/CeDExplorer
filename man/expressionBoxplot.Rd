@@ -19,3 +19,21 @@ A ggplot2 object showing expression distribution between groups.
 \description{
 Creates a boxplot comparing expression levels between CeD and control samples.
 }
+\references{
+Hintze, J. L., & Nelson, R. D. (1998). Violin plots: A box plot-density
+trace synergism. The American Statistician, 52(2), 181-184.
+https://doi.org/10.1080/00031305.1998.10480559
+
+Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold
+change and dispersion for RNA-seq data with DESeq2. Genome Biology, 15(12), 550.
+https://doi.org/10.1186/s13059-014-0550-8
+
+McCarthy, D. J., Chen, Y., & Smyth, G. K. (2012). Differential expression
+analysis of multifactor RNA-Seq experiments with respect to biological
+variation. Nucleic Acids Research, 40(10), 4288-4297.
+https://doi.org/10.1093/nar/gks042
+
+Wilcoxon, F. (1945). Individual comparisons by ranking methods.
+Biometrics Bulletin, 1(6), 80-83.
+https://doi.org/10.2307/3001968
+}

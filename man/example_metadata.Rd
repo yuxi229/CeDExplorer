@@ -3,22 +3,28 @@
 \docType{data}
 \name{example_metadata}
 \alias{example_metadata}
-\title{Example sample metadata}
+\title{Example Sample Metadata}
 \format{
-A data frame with 10 rows and 2 variables:
+A data frame with 50 rows and 3 variables:
 \describe{
-\item{sample}{Sample identifier}
-\item{condition}{Condition, either 'CeD' or 'Control'}
+\item{sample_id}{Sample identifier}
+\item{condition}{Disease condition}
+\item{batch}{Processing batch}
 }
+}
+\source{
+Simulated sample information for demonstration purposes
 }
 \usage{
 example_metadata
 }
 \description{
-Sample annotation data matching the example expression datasets.
+Simulated sample metadata matching the example expression datasets.
 }
-\examples{
-data(example_metadata)
-head(example_metadata)
+\references{
+Leek, J. T., Scharpf, R. B., Bravo, H. C., Simcha, D., Langmead, B.,
+Johnson, W. E., ... & Irizarry, R. A. (2010). Tackling the widespread and
+critical impact of batch effects in high-throughput data. Nature Reviews
+Genetics, 11(10), 733-739. https://doi.org/10.1038/nrg2825
 }
 \keyword{datasets}
