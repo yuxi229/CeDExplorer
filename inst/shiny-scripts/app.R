@@ -29,26 +29,22 @@ ui <- fluidPage(
                   accept = c(".csv"),
                   placeholder = "Choose CSV file"),
         helpText("File format: CSV with samples as rows, genes as columns"),
-        helpText("Required columns: 'sample', 'condition', plus gene columns")
+        helpText("Required columns: 'gene', 'sample', 'condition', 'expression'")
       ),
       
-      # Gene Selection
+      # Gene Selection (initially empty, will be populated by server)
       selectInput("gene", "Select Gene to Visualize:",
-                  choices = c("HLA-DQA1", "HLA-DQB1", "HLA-DRA", "HLA-DRB1"),
-                  selected = "HLA-DQA1"),
+                  choices = NULL,  # Will be populated dynamically
+                  selected = NULL),
       
       # Plot Options
       checkboxInput("violin", "Use Violin Plot", value = TRUE),
-      
-      # Action Button
-      actionButton("update_plot", "Generate Plot", 
-                   class = "btn-primary"),
       
       # Demo Data Info
       conditionalPanel(
         condition = "input.data_source == 'demo'",
         hr(),
-        helpText("Demo data: example_expression dataset in long format with 6 HLA genes")
+        helpText("Demo data: example_expression with immune-related genes")
       )
     ),
     
@@ -62,7 +58,6 @@ ui <- fluidPage(
       verbatimTextOutput("data_summary"),
       
       # File Format Instructions
-      # In the UI, update the file format instructions:
       conditionalPanel(
         condition = "input.data_source == 'upload'",
         wellPanel(
@@ -78,10 +73,10 @@ ui <- fluidPage(
           h5("Example structure (LONG format):"),
           tags$pre(
             "gene,sample,condition,expression
-HLA-DQA1,S1,CeD,8.2
-HLA-DQA1,S2,Control,5.1
-HLA-DQB1,S1,CeD,7.5
-HLA-DQB1,S2,Control,4.8"
+Gene1,S1,CeD,8.2
+Gene1,S2,Control,5.1
+Gene2,S1,CeD,7.5
+Gene2,S2,Control,4.8"
           )
         )
       )
@@ -90,15 +85,14 @@ HLA-DQB1,S2,Control,4.8"
 )
 
 # Define server logic
-# Define server logic
 server <- function(input, output, session) {
   
   # Reactive expression for data
   plot_data <- reactive({
     if (input$data_source == "demo") {
-      # Use example_expression directly - it's already in the correct LONG format
-      cat("=== DEBUG: Using demo data in long format ===\n")
-      return(CeDExplorer::example_expression)
+      # Use demo data
+      data <- CeDExplorer::example_expression
+      return(data)
     } else {
       # Use uploaded data
       req(input$file_upload)
@@ -106,7 +100,7 @@ server <- function(input, output, session) {
       # Read uploaded file
       user_data <- read.csv(input$file_upload$datapath)
       
-      # Validate required columns for LONG format
+      # Validate required columns
       required_cols <- c("gene", "sample", "condition", "expression")
       missing_cols <- setdiff(required_cols, colnames(user_data))
       
@@ -123,34 +117,45 @@ server <- function(input, output, session) {
     }
   })
   
+  # Update gene selection based on available data
+  observe({
+    data <- plot_data()
+    req(data)
+    
+    available_genes <- sort(unique(data$gene))
+    
+    # Update the select input
+    updateSelectInput(session, "gene", 
+                      choices = available_genes,
+                      selected = available_genes[1])
+  })
+  
   # Generate plot automatically when inputs change
   output$expression_plot <- renderPlot({
-    # Require that we have data and a gene selected
     data <- plot_data()
     req(data, input$gene)
     
-    cat("=== DEBUG: Starting plot generation ===\n")
-    cat("Selected gene:", input$gene, "\n")
-    cat("Data dimensions:", dim(data), "\n")
-    cat("Data columns:", paste(colnames(data), collapse = ", "), "\n")
+    # Additional validation: check if selected gene exists
+    if (!input$gene %in% data$gene) {
+      return(ggplot2::ggplot() + 
+               ggplot2::geom_text(ggplot2::aes(x = 0.5, y = 0.5, 
+                                               label = paste("Gene", input$gene, "not found in data"))) +
+               ggplot2::theme_void())
+    }
     
     tryCatch({
-      # Generate the plot - the function will filter for the selected gene
       p <- CeDExplorer::expressionBoxplot(
         gene = input$gene,
         dataset = data,
         violin = input$violin
       )
-      cat("=== DEBUG: Plot generated successfully ===\n")
       return(p)
     }, error = function(e) {
-      cat("=== DEBUG: Plot error:", e$message, "===\n")
       showNotification(
         paste("Error generating plot:", e$message),
         type = "error",
         duration = 10
       )
-      # Return a simple error plot
       ggplot2::ggplot() + 
         ggplot2::geom_text(ggplot2::aes(x = 0.5, y = 0.5, 
                                         label = paste("Error:", e$message))) +
@@ -168,7 +173,7 @@ server <- function(input, output, session) {
     cat("Total observations:", nrow(data), "\n")
     cat("Unique samples:", length(unique(data$sample)), "\n")
     cat("Conditions:", paste(unique(data$condition), collapse = ", "), "\n")
-    cat("Available genes:", paste(unique(data$gene), collapse = ", "), "\n")
+    cat("Available genes:", paste(sort(unique(data$gene)), collapse = ", "), "\n")
     cat("Samples per condition:\n")
     print(table(data$condition))
   })
