@@ -23,7 +23,30 @@ devtools::install_github("yuxi229/CeDExplorer", build_vignettes = TRUE)
 library("CeDExplorer")
 ```
 
-To run the shinyApp: Under construction
+## ShinyApp 
+
+To run the shinyApp: 
+
+## Overview
+
+```r
+runCeDExplorerApp()
+```
+
+The CeDExplorer Shiny app includes built-in demo data:
+
+### Built-in Data
+- **Dataset**: `CeDExplorer::example_expression`
+- **Access**: Available automatically when selecting "Use Demo Data"
+- **Description**: Simulated gene expression data for immune-related genes
+
+### CSV Format Requirements
+```csv
+gene,sample,condition,expression
+HLA-DQA1,S1,CeD,8.2
+HLA-DQA1,S2,Control,5.1
+HLA-DQB1,S1,CeD,7.5
+HLA-DQB1,S2,Control,4.8
 
 ## Overview
 
