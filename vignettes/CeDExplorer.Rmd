@@ -50,6 +50,14 @@ ls("package:CeDExplorer")
 data(package = "CeDExplorer")
 ```
 
+## Interactive Shiny Application
+
+CeDExplorer includes an interactive web application for exploring gene expression data:
+
+```r
+# Launch the Shiny app
+runCeDExplorerApp()
+```
 <br>
 
 ## GWAS Analysis
