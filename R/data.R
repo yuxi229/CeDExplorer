@@ -1,22 +1,20 @@
-#' Example Celiac Disease GWAS Data
+#' Celiac disease GWAS example data
 #'
-#' A curated dataset containing simulated genome-wide association study (GWAS) 
-#' results for celiac disease. This dataset mimics real GWAS findings with 
-#' strong associations in the HLA region and other established risk loci.
-#'
-#' @format A data frame with 50 rows and 8 variables:
+#' @name celiac_gwas_example
+#' @docType data
+#' @usage data(celiac_gwas_example)
+#' @format A data frame with columns:
 #' \describe{
-#'   \item{association_id}{Unique identifier for each association}
-#'   \item{SNP}{Variant identifier (rsID)}
-#'   \item{mapped_gene}{Nearest gene to the variant}
-#'   \item{p_value}{Association p-value}
-#'   \item{odds_ratio}{Effect size as odds ratio}
-#'   \item{beta}{Effect size as beta coefficient (NA for some variants)}
-#'   \item{standard_error}{Standard error of effect size estimate}
-#'   \item{risk_allele}{Risk allele for the association}
-#'   \item{source}{Data source identifier}
+#'   \item{SNP}{SNP identifier}
+#'   \item{chromosome}{Chromosome location}
+#'   \item{mapped_gene}{Mapped gene symbol}
+#'   \item{odds_ratio}{Odds ratio}
+#'   \item{p_value}{P-value}
+#'   \item{position}{Genomic position}
+#'   \item{source}{Data source}
 #' }
-#'
+#' @keywords datasets
+#' 
 #' @details
 #' **Data Source and Curation:**
 #' This dataset is simulated based on established celiac disease genetic 
@@ -73,22 +71,54 @@
 #' }
 "celiac_gwas_example"
 
-#' Example Gene Expression Data
+#' Example gene expression data
 #'
-#' A simulated dataset containing gene expression values for celiac disease 
-#' and control samples. Data mimics RNA-seq expression patterns with 
-#' biologically realistic distributions and condition-specific differences.
-#'
-#' @format A data frame with 1000 rows and 6 variables:
+#' @name example_expression
+#' @docType data
+#' @usage data(example_expression)
+#' @format A data frame with columns:
 #' \describe{
-#'   \item{sample}{Sample identifier (S1-S1000)}
-#'   \item{condition}{Condition, either "CeD" or "Control"}
-#'   \item{HLA-DQA1}{HLA-DQA1 expression values}
-#'   \item{HLA-DQB1}{HLA-DQB1 expression values} 
-#'   \item{IL2}{IL2 expression values}
-#'   \item{IFNG}{IFNG expression values}
+#'   \item{gene}{Gene symbol}
+#'   \item{sample}{Sample identifier}
+#'   \item{condition}{Condition (CeD or Control)}
+#'   \item{expression}{Expression value}
 #' }
-#'
+#' @keywords datasets
+#' 
+#' @references
+#' Data simulation methodology based on:
+#' 
+#' Jabri, B., & Sollid, L. M. (2009). T-cell and dendritic cell responses 
+#' in celiac disease. *Nature Reviews Gastroenterology & Hepatology*, *6*(4), 
+#' 220–227. https://doi.org/10.1038/nrgastro.2009.11
+#' 
+#' Expression patterns modeled after:
+#' Duggan, S. P., Gallagher, W. M., Fox, E. J., Abdel-Latif, M. M., 
+#' Reynolds, J. V., & Kelleher, D. (2006). Low pH conditions mimic 
+#' duodenal exposure to non-steroidal anti-inflammatory drugs (NSAIDs) 
+#' and activate expression of genes involved in tissue homeostasis. 
+#' *Journal of Biological Chemistry*, *281*(42), 31268–31278. 
+#' https://doi.org/10.1074/jbc.M604986200
+#' 
+#' Statistical distribution based on:
+#' Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation 
+#' of fold change and dispersion for RNA-seq data with DESeq2. 
+#' *Genome Biology*, *15*(12), 550. https://doi.org/10.1186/s13059-014-0550-8
+#' 
+#' HLA gene expression patterns referenced from:
+#' Trynka, G., Hunt, K. A., Bockett, N. A., Romanos, J., Mistry, V., 
+#' Szperl, A., Bakker, S. F., Bardella, M. T., Bhaw-Rosun, L., Castillejo, G., 
+#' de la Concha, E. G., de Almeida, R. C., Dias, K. R., van Diemen, C. C., 
+#' Dubois, P. C., Duerr, R. H., Edkins, S., Franke, L., Fransen, K., ... 
+#' van Heel, D. A. (2011). Dense genotyping identifies and localizes multiple 
+#' common and rare variant association signals in celiac disease. 
+#' *Nature Genetics*, *43*(12), 1193–1201. https://doi.org/10.1038/ng.998
+#' 
+#' Immune gene signatures modeled after:
+#' Hänzelmann, S., Castelo, R., & Guinney, J. (2013). GSVA: Gene set 
+#' variation analysis for microarray and RNA-seq data. *BMC Bioinformatics*, 
+#' *14*, 7. https://doi.org/10.1186/1471-2105-14-7
+#' 
 #' @source
 #' Simulated expression data modeled after:
 #' - Celiac disease transcriptomic studies
@@ -118,16 +148,17 @@
 #' and celiac disease expression patterns
 "example_expression_matrix"
 
-#' Example Sample Metadata
+#' Example metadata
 #'
-#' Simulated sample metadata matching the example expression datasets.
-#'
-#' @format A data frame with 50 rows and 3 variables:
+#' @name example_metadata
+#' @docType data
+#' @usage data(example_metadata)
+#' @format A data frame with columns:
 #' \describe{
-#'   \item{sample_id}{Sample identifier}
-#'   \item{condition}{Disease condition}
-#'   \item{batch}{Processing batch}
+#'   \item{sample}{Sample identifier}
+#'   \item{condition}{Condition (CeD or Control)}
 #' }
+#' @keywords datasets
 #' 
 #' @references
 #' Leek, J. T., Scharpf, R. B., Bravo, H. C., Simcha, D., Langmead, B., 

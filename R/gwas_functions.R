@@ -171,29 +171,28 @@ getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
 #' # Custom title and significance level
 #' plotGwasSummary(gwas_data, 
 #'                 title = "Celiac Disease Association Results",
-#'                 significanceLevel = 1e-6)
+#'                 significance_level = 1e-6)  
 #' }
 plotGwasSummary <- function(gwas_data, title = "Celiac Disease GWAS Summary", 
-                              significance_level = 5e-8) {
+                            significance_level = 5e-8) {
   
   # Calculate -log10 p-values
-  gwas_data$log_p <- -log10(gwas_data$p_value)
+  gwas_data$log_p <- -log10(gwas_data$p_value)  # This creates log_p column
   
   # Remove any infinite or missing values
   gwas_data <- gwas_data[is.finite(gwas_data$log_p) & !is.na(gwas_data$log_p), ]
   
-  # Create a simple point plot (similar to volcano but without effect size)
-  p <- ggplot(gwas_data, aes(x = 1:nrow(gwas_data), y = log_p)) +
-    geom_point(alpha = 0.6, size = 1, color = "blue") +
-    # Genome-wide significance threshold (Dudbridge & Gusnanto, 2008)
-    geom_hline(yintercept = -log10(significance_level), 
-               color = "red", linetype = "dashed", linewidth = 0.8) +
-    labs(
+  # Create plot - use aes_string or refer to column properly
+  p <- ggplot2::ggplot(gwas_data, ggplot2::aes(x = seq_along(.data$log_p), y = .data$log_p)) +
+    ggplot2::geom_point(alpha = 0.6, size = 1, color = "blue") +
+    ggplot2::geom_hline(yintercept = -log10(significance_level), 
+                        color = "red", linetype = "dashed", linewidth = 0.8) +
+    ggplot2::labs(
       title = title,
       x = "SNP Index",
       y = "-log10(p-value)"
     ) +
-    theme_minimal()
+    ggplot2::theme_minimal()
   
   return(p)
 }
@@ -218,9 +217,10 @@ plotGwasSummary <- function(gwas_data, title = "Celiac Disease GWAS Summary",
 #' plotTopGwasHits(gwas_data)
 #'
 #' # Plot top 10 hits with custom title
-#' plotTopGwasHits(gwas_data, topN = 10, 
+#' plotTopGwasHits(gwas_data, top_n = 10,  
 #'                 title = "Top 10 Celiac Disease GWAS Hits")
 #' }
+#' @importFrom stats reorder
 plotTopGwasHits <- function(gwas_data, top_n = 20, title = "Top Celiac Disease GWAS Hits") {
   
   # Sort by p-value and take top hits using base R

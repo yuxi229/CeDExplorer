@@ -29,7 +29,7 @@ plotGwasSummary(gwas_data)
 # Custom title and significance level
 plotGwasSummary(gwas_data, 
                 title = "Celiac Disease Association Results",
-                significanceLevel = 1e-6)
+                significance_level = 1e-6)  
 }
 }
 \references{

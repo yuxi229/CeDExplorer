@@ -3,23 +3,22 @@
 \docType{data}
 \name{example_metadata}
 \alias{example_metadata}
-\title{Example Sample Metadata}
+\title{Example metadata}
 \format{
-A data frame with 50 rows and 3 variables:
+A data frame with columns:
 \describe{
-\item{sample_id}{Sample identifier}
-\item{condition}{Disease condition}
-\item{batch}{Processing batch}
+\item{sample}{Sample identifier}
+\item{condition}{Condition (CeD or Control)}
 }
 }
 \source{
 Simulated sample information for demonstration purposes
 }
 \usage{
-example_metadata
+data(example_metadata)
 }
 \description{
-Simulated sample metadata matching the example expression datasets.
+Example metadata
 }
 \references{
 Leek, J. T., Scharpf, R. B., Bravo, H. C., Simcha, D., Langmead, B.,

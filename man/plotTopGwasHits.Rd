@@ -23,7 +23,7 @@ gwas_data <- getCeliacGwas()
 plotTopGwasHits(gwas_data)
 
 # Plot top 10 hits with custom title
-plotTopGwasHits(gwas_data, topN = 10, 
+plotTopGwasHits(gwas_data, top_n = 10,  
                 title = "Top 10 Celiac Disease GWAS Hits")
 }
 }

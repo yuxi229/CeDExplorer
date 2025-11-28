@@ -3,16 +3,14 @@
 \docType{data}
 \name{example_expression}
 \alias{example_expression}
-\title{Example Gene Expression Data}
+\title{Example gene expression data}
 \format{
-A data frame with 1000 rows and 6 variables:
+A data frame with columns:
 \describe{
-\item{sample}{Sample identifier (S1-S1000)}
-\item{condition}{Condition, either "CeD" or "Control"}
-\item{HLA-DQA1}{HLA-DQA1 expression values}
-\item{HLA-DQB1}{HLA-DQB1 expression values}
-\item{IL2}{IL2 expression values}
-\item{IFNG}{IFNG expression values}
+\item{gene}{Gene symbol}
+\item{sample}{Sample identifier}
+\item{condition}{Condition (CeD or Control)}
+\item{expression}{Expression value}
 }
 }
 \source{
@@ -24,11 +22,43 @@ Simulated expression data modeled after:
 }
 }
 \usage{
-example_expression
+data(example_expression)
 }
 \description{
-A simulated dataset containing gene expression values for celiac disease
-and control samples. Data mimics RNA-seq expression patterns with
-biologically realistic distributions and condition-specific differences.
+Example gene expression data
+}
+\references{
+Data simulation methodology based on:
+
+Jabri, B., & Sollid, L. M. (2009). T-cell and dendritic cell responses
+in celiac disease. \emph{Nature Reviews Gastroenterology & Hepatology}, \emph{6}(4),
+220–227. https://doi.org/10.1038/nrgastro.2009.11
+
+Expression patterns modeled after:
+Duggan, S. P., Gallagher, W. M., Fox, E. J., Abdel-Latif, M. M.,
+Reynolds, J. V., & Kelleher, D. (2006). Low pH conditions mimic
+duodenal exposure to non-steroidal anti-inflammatory drugs (NSAIDs)
+and activate expression of genes involved in tissue homeostasis.
+\emph{Journal of Biological Chemistry}, \emph{281}(42), 31268–31278.
+https://doi.org/10.1074/jbc.M604986200
+
+Statistical distribution based on:
+Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation
+of fold change and dispersion for RNA-seq data with DESeq2.
+\emph{Genome Biology}, \emph{15}(12), 550. https://doi.org/10.1186/s13059-014-0550-8
+
+HLA gene expression patterns referenced from:
+Trynka, G., Hunt, K. A., Bockett, N. A., Romanos, J., Mistry, V.,
+Szperl, A., Bakker, S. F., Bardella, M. T., Bhaw-Rosun, L., Castillejo, G.,
+de la Concha, E. G., de Almeida, R. C., Dias, K. R., van Diemen, C. C.,
+Dubois, P. C., Duerr, R. H., Edkins, S., Franke, L., Fransen, K., ...
+van Heel, D. A. (2011). Dense genotyping identifies and localizes multiple
+common and rare variant association signals in celiac disease.
+\emph{Nature Genetics}, \emph{43}(12), 1193–1201. https://doi.org/10.1038/ng.998
+
+Immune gene signatures modeled after:
+Hänzelmann, S., Castelo, R., & Guinney, J. (2013). GSVA: Gene set
+variation analysis for microarray and RNA-seq data. \emph{BMC Bioinformatics},
+\emph{14}, 7. https://doi.org/10.1186/1471-2105-14-7
 }
 \keyword{datasets}

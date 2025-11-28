@@ -24,7 +24,7 @@ environmental triggers (gluten) to drive disease development (Sollid &
 Jabri, 2013). CeDExplorer addresses several critical gaps in CeD
 research:
 
-### 1. Bridging Genetic Associations and Functional Consequences
+#### 1. Bridging Genetic Associations and Functional Consequences
 
 The package enables researchers to connect GWAS-identified risk variants
 with their potential functional impacts on gene expression:
@@ -36,7 +36,7 @@ with their potential functional impacts on gene expression:
 - This addresses the critical need to move beyond association signals to
   understanding biological mechanisms (Edwards et al., 2013)
 
-### 2. HLA-Centric Analysis Framework
+#### 2. HLA-Centric Analysis Framework
 
 Given that HLA genes account for approximately 40% of the genetic risk
 in celiac disease (Sollid, 2002), your package provides specialized
@@ -47,7 +47,7 @@ tools:
 - This is particularly valuable for understanding how specific HLA-DQA1
   and HLA-DQB1 haplotypes influence immune responses to gluten peptides
 
-### 3. Immune Pathway Quantification
+#### 3. Immune Pathway Quantification
 
 CeD is characterized by specific inflammatory pathways that your package
 can quantify:
@@ -58,7 +58,7 @@ can quantify:
 - These signatures reflect key cytokine drivers of intestinal
   inflammation in active CeD (Jabri & Sollid, 2009)
 
-### 4. Accessible Visualization and Analysis
+#### 4. Accessible Visualization and Analysis
 
 - `expressionBoxplot()` provides standardized visualization of gene
   expression differences using both boxplots and violin plots (Hintze &
@@ -81,11 +81,19 @@ devtools::install_github("yuxi229/CeDExplorer", build_vignettes = TRUE)
 library("CeDExplorer")
 ```
 
+## Overview
+
+``` r
+ls("package:CeDExplorer")
+data(package = "CeDExplorer")
+browseVignettes("CeDExplorer")
+```
+
 ## ShinyApp
 
 To run the shinyApp:
 
-## Overview
+#### Overview
 
 ``` r
 runCeDExplorerApp()
@@ -93,14 +101,14 @@ runCeDExplorerApp()
 
 The CeDExplorer Shiny app includes built-in demo data:
 
-### Built-in Data
+#### Built-in Data
 
 - **Dataset**: `CeDExplorer::example_expression`
 - **Access**: Available automatically when selecting “Use Demo Data”
 - **Description**: Simulated gene expression data for immune-related
   genes
 
-### CSV Format Requirements
+#### CSV Format Requirements
 
 ``` csv
 gene,sample,condition,expression
@@ -108,16 +116,9 @@ HLA-DQA1,S1,CeD,8.2
 HLA-DQA1,S2,Control,5.1
 HLA-DQB1,S1,CeD,7.5
 HLA-DQB1,S2,Control,4.8
-
-## Overview
-
-```r
-ls("package:CeDExplorer")
-data(package = "CeDExplorer")
-browseVignettes("CeDExplorer")
 ```
 
-### Available Functions:
+## Available Functions:
 
 - `getCeliacGwas()`: Retrieve celiac disease GWAS summary statistics  
 - `plotTopGwasHits()`: Plot top GWAS associations as bar plot
@@ -166,7 +167,7 @@ author.
 
 ## References
 
-### Scientific Literature
+#### Scientific Literature
 
 Buniello, A., MacArthur, J. A. L., Cerezo, M., Harris, L. W., Hayhurst,
 J., Malangone, C., McMahon, A., Morales, J., Mountjoy, E., Sollis, E.,
@@ -273,7 +274,7 @@ Nature Genetics, 43(12), 1193–1201. <https://doi.org/10.1038/ng.998>
 Wilcoxon, F. (1945). Individual comparisons by ranking methods.
 Biometrics Bulletin, 1(6), 80–83. <https://doi.org/10.2307/3001968>
 
-### R Packages
+#### R Packages
 
 Allaire, J. J., Xie, Y., Dervieux, C., McPherson, J., Luraschi, J.,
 Ushey, K., Atkins, A., Wickham, H., Cheng, J., Chang, W., & Iannone, R.
@@ -316,7 +317,7 @@ Xie, Y. (2025). knitr: A General-Purpose Package for Dynamic Report
 Generation in R (Version 1.50) \[Computer software\].
 <https://yihui.org/knitr/>
 
-### Books and Articles
+#### Books and Articles
 
 Antonov, M., Csárdi, G., Horvát, S., Müller, K., Nepusz, T., Noom, D.,
 Salmon, M., Traag, V., Welles, B. F., & Zanini, F. (2023). igraph

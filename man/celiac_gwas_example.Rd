@@ -3,19 +3,17 @@
 \docType{data}
 \name{celiac_gwas_example}
 \alias{celiac_gwas_example}
-\title{Example Celiac Disease GWAS Data}
+\title{Celiac disease GWAS example data}
 \format{
-A data frame with 50 rows and 8 variables:
+A data frame with columns:
 \describe{
-\item{association_id}{Unique identifier for each association}
-\item{SNP}{Variant identifier (rsID)}
-\item{mapped_gene}{Nearest gene to the variant}
-\item{p_value}{Association p-value}
-\item{odds_ratio}{Effect size as odds ratio}
-\item{beta}{Effect size as beta coefficient (NA for some variants)}
-\item{standard_error}{Standard error of effect size estimate}
-\item{risk_allele}{Risk allele for the association}
-\item{source}{Data source identifier}
+\item{SNP}{SNP identifier}
+\item{chromosome}{Chromosome location}
+\item{mapped_gene}{Mapped gene symbol}
+\item{odds_ratio}{Odds ratio}
+\item{p_value}{P-value}
+\item{position}{Genomic position}
+\item{source}{Data source}
 }
 }
 \source{
@@ -27,12 +25,10 @@ Simulated data based on established celiac disease associations from:
 }
 }
 \usage{
-celiac_gwas_example
+data(celiac_gwas_example)
 }
 \description{
-A curated dataset containing simulated genome-wide association study (GWAS)
-results for celiac disease. This dataset mimics real GWAS findings with
-strong associations in the HLA region and other established risk loci.
+Celiac disease GWAS example data
 }
 \details{
 \strong{Data Source and Curation:}
