@@ -30,6 +30,23 @@
 #'
 #' @return Shiny application object
 #'
+#' @references
+#' Chang, W., Cheng, J., Allaire, J., Sievert, C., Schloerke, B., Xie, Y., 
+#' Allen, J., McPherson, J., Dipert, A., & Borges, B. (2023). shiny: Web 
+#' Application Framework for R. R package version 1.7.5. 
+#' https://CRAN.R-project.org/package=shiny
+#'
+#' Wickham, H. (2016). ggplot2: Elegant Graphics for Data Analysis. 
+#' Springer-Verlag New York. ISBN 978-3-319-24277-4.
+#' 
+#' Hintze, J. L., & Nelson, R. D. (1998). Violin plots: A box plot-density 
+#' trace synergism. The American Statistician, 52(2), 181-184. 
+#' https://doi.org/10.1080/00031305.1998.10480559
+#'
+#' Wilcoxon, F. (1945). Individual comparisons by ranking methods. 
+#' Biometrics Bulletin, 1(6), 80-83. 
+#' https://doi.org/10.2307/3001968
+#' 
 #' @export
 #' @importFrom shiny runApp
 #' @examples
