@@ -257,6 +257,10 @@ allele_freq <- data.frame(
 
 <br> 
 
+## Referencing this package
+
+Zhang, Y. (2025). CeDExplorer: Comprehensive analysis toolkit for celiac disease genomics and transcriptomics (Version 1.0.0) [Computer software]. https://github.com/yuxi229/CeDExplorer 
+
 ## References 
 
 ### Software Packages
