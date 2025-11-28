@@ -1,5 +1,13 @@
+# Purpose: Visualize relationship between HLA allele frequencies and gene expression
+# Author: Yuxi Zhang
+# Date: Nov 27, 2025
+# Version: 1.0
+# Bugs and Issues: Uses simulated data for demonstration
+#'
 #' Plot HLA allele frequency vs gene expression
 #'
+#' @name hlaInteractionPlot
+#' 
 #' @description
 #' Visualizes the relationship between HLA allele frequencies and gene expression levels
 #' across different conditions (e.g., CeD vs Control). Uses simulated data for demonstration.

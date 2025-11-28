@@ -20,6 +20,18 @@ plotGwasSummary(
 \description{
 Plot GWAS summary (volcano plot) since we lack chromosome data for Manhattan plot
 }
+\examples{
+\donttest{
+# Get GWAS data and create summary plot
+gwas_data <- getCeliacGwas()
+plotGwasSummary(gwas_data)
+
+# Custom title and significance level
+plotGwasSummary(gwas_data, 
+                title = "Celiac Disease Association Results",
+                significanceLevel = 1e-6)
+}
+}
 \references{
 Dudbridge, F., & Gusnanto, A. (2008). Estimation of significance
 thresholds for genomewide association scans. \emph{Genetic Epidemiology}, \emph{32}(3),

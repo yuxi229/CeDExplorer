@@ -1,5 +1,13 @@
+# Purpose: Compute inflammation signature scores for CeD samples using gene expression data
+# Author: Yuxi Zhang
+# Date: Nov 27, 2025
+# Version: 1.0
+# Bugs and Issues: GSVA method requires GSVA package; example data must be available
+
 #' Compute inflammation signature scores for CeD samples
 #'
+#' @name scoreInflammationSignature
+#' 
 #' @description
 #' Calculates per-sample signature scores from expression data for a given
 #' inflammation-related gene set (e.g., IFN-gamma or TNF-alpha response).
@@ -60,6 +68,7 @@ scoreInflammationSignature <- function(dataset = NULL,
   meta <- get("example_metadata", envir = environment())
 
   # Example built-in gene signatures
+  # (Jabri & Sollid, 2009; Hänzelmann et al., 2013)
   sig_db <- list(
     IFN_gamma = c("IFNG", "STAT1", "CXCL9", "CXCL10", "IRF1"),
     TNF_alpha = c("TNF", "NFKB1", "IL1B", "RELA", "CCL2")
@@ -113,6 +122,7 @@ scoreInflammationSignature <- function(dataset = NULL,
       ggplot2::theme(legend.position = "none")
 
     # Add Wilcoxon p-value if two groups exist
+    # when two conditions are present (Wilcoxon, 1945)
     if (length(unique(df$condition)) == 2) {
       pval <- suppressWarnings(wilcox.test(score ~ condition, data = df)$p.value)
       p <- p + ggplot2::annotate("text", x = 1.5, y = max(df$score, na.rm = TRUE),

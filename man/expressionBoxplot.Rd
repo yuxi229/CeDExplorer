@@ -19,6 +19,25 @@ A ggplot2 object showing expression distribution between groups.
 \description{
 Creates a boxplot comparing expression levels between CeD and control samples.
 }
+\examples{
+\donttest{
+# Basic boxplot for HLA-DQA1
+expressionBoxplot("HLA-DQA1")
+
+# Violin plot for HLA-DQB1
+expressionBoxplot("HLA-DQB1", violin = TRUE)
+
+# Using custom dataset
+custom_data <- data.frame(
+  gene = rep(c("HLA-DQA1", "HLA-DQB1"), each = 20),
+  sample = paste0("S", 1:40),
+  condition = rep(rep(c("CeD", "Control"), each = 10), 2),
+  expression = c(rnorm(10, 8, 1), rnorm(10, 5, 1), 
+                 rnorm(10, 7, 1), rnorm(10, 4, 1))
+)
+expressionBoxplot("HLA-DQA1", dataset = custom_data)
+}
+}
 \references{
 Hintze, J. L., & Nelson, R. D. (1998). Violin plots: A box plot-density
 trace synergism. The American Statistician, 52(2), 181-184.

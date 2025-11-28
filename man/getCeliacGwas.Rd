@@ -15,7 +15,24 @@ getCeliacGwas(fetch = FALSE, force_fetch = FALSE)
 Data frame with GWAS data
 }
 \description{
-Get celiac disease GWAS data from GWAS Catalog
+Retrieve celiac disease GWAS data from GWAS Catalog or use bundled data
+}
+\examples{
+\donttest{
+# Get bundled example data (default)
+gwas_data <- getCeliacGwas()
+head(gwas_data)
+
+# Try to fetch live data (requires internet and gwasrapidd package)
+\dontrun{
+live_data <- getCeliacGwas(fetch = TRUE)
+}
+
+# Force fetch even if bundled data exists
+\dontrun{
+force_data <- getCeliacGwas(forceFetch = TRUE)
+}
+}
 }
 \references{
 MacDonald, J. R., Zuber, V., & Ong, J. S. (2020). gwasrapidd: An R

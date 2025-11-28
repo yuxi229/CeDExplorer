@@ -1,5 +1,13 @@
+# Purpose: Create boxplot or violin plot comparing gene expression between CeD and control samples
+# Author: Yuxi Zhang
+# Date: Nov 27, 2025
+# Version: 1.0
+# Bugs and Issues: None known
+
 #' Expression boxplot for a given gene
 #'
+#' @name expressionBoxplot
+#' 
 #' @description
 #' Creates a boxplot comparing expression levels between CeD and control samples.
 #'
@@ -31,6 +39,24 @@
 #' @importFrom stats wilcox.test
 #' @importFrom grDevices colorRampPalette
 #' @importFrom utils head
+#' @examples
+#' \donttest{
+#' # Basic boxplot for HLA-DQA1
+#' expressionBoxplot("HLA-DQA1")
+#'
+#' # Violin plot for HLA-DQB1
+#' expressionBoxplot("HLA-DQB1", violin = TRUE)
+#'
+#' # Using custom dataset
+#' custom_data <- data.frame(
+#'   gene = rep(c("HLA-DQA1", "HLA-DQB1"), each = 20),
+#'   sample = paste0("S", 1:40),
+#'   condition = rep(rep(c("CeD", "Control"), each = 10), 2),
+#'   expression = c(rnorm(10, 8, 1), rnorm(10, 5, 1), 
+#'                  rnorm(10, 7, 1), rnorm(10, 4, 1))
+#' )
+#' expressionBoxplot("HLA-DQA1", dataset = custom_data)
+#' }
 expressionBoxplot <- function(gene, dataset = NULL, violin = FALSE) {
   # ---- Argument checks ----
   if (missing(gene) || is.null(gene) || !is.character(gene) || length(gene) == 0) {
@@ -65,7 +91,8 @@ expressionBoxplot <- function(gene, dataset = NULL, violin = FALSE) {
 
   # ---- Plot ----
   p <- ggplot2::ggplot(df, ggplot2::aes(x = condition, y = expression, fill = condition))
-
+  
+  # Use violin plot if requested (Hintze & Nelson, 1998)
   if (isTRUE(violin)) {
     p <- p + ggplot2::geom_violin(trim = FALSE, alpha = 0.5)
   } else {
@@ -82,6 +109,7 @@ expressionBoxplot <- function(gene, dataset = NULL, violin = FALSE) {
     ggplot2::theme(legend.position = "none")
 
   # ---- Optional Wilcoxon test annotation ----
+  # Wilcoxon rank-sum test (Wilcoxon, 1945)
   if (length(unique(df$condition)) == 2) {
     pval <- suppressWarnings(stats::wilcox.test(expression ~ condition, data = df)$p.value)
     p <- p + ggplot2::annotate(

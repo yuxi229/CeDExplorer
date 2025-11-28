@@ -16,6 +16,17 @@ plotTopGwasHits(gwas_data, top_n = 20, title = "Top Celiac Disease GWAS Hits")
 \description{
 Plot top GWAS hits with gene labels
 }
+\examples{
+\donttest{
+# Plot top 20 hits
+gwas_data <- getCeliacGwas()
+plotTopGwasHits(gwas_data)
+
+# Plot top 10 hits with custom title
+plotTopGwasHits(gwas_data, topN = 10, 
+                title = "Top 10 Celiac Disease GWAS Hits")
+}
+}
 \references{
 Sollid, L. M., & Jabri, B. (2013). Triggers and drivers of autoimmunity:
 Lessons from coeliac disease. Nature Reviews Immunology, 13(4), 294-302.

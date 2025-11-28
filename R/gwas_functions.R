@@ -1,4 +1,16 @@
+# Purpose: Retrieve celiac disease GWAS data from GWAS Catalog or use bundled data
+# Author: Yuxi Zhang
+# Date: Nov 27, 2025
+# Version: 1.0
+# Bugs and Issues: Requires internet connection for live data fetching
+
 #' Get celiac disease GWAS data from GWAS Catalog
+#'
+#' @name getCeliacGwas
+#' 
+#' @description
+#' Retrieve celiac disease GWAS data from GWAS Catalog or use bundled data
+#' 
 #' @param fetch Logical, whether to fetch from GWAS Catalog or use bundled data
 #' @param force_fetch Logical, whether to force fetching even if bundled data exists
 #' @return Data frame with GWAS data
@@ -20,6 +32,22 @@
 #' @importFrom gwasrapidd get_studies get_associations
 #' @importFrom dplyr left_join distinct
 #' @export
+#' @examples
+#' \donttest{
+#' # Get bundled example data (default)
+#' gwas_data <- getCeliacGwas()
+#' head(gwas_data)
+#'
+#' # Try to fetch live data (requires internet and gwasrapidd package)
+#' \dontrun{
+#' live_data <- getCeliacGwas(fetch = TRUE)
+#' }
+#'
+#' # Force fetch even if bundled data exists
+#' \dontrun{
+#' force_data <- getCeliacGwas(forceFetch = TRUE)
+#' }
+#' }
 getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
   
   if(fetch || force_fetch) {
@@ -59,6 +87,7 @@ getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
         names(snp_info)[names(snp_info) == "variant_id"] <- "SNP"
         
         # Merge with main data
+        # Using gwasrapidd package (MacDonald et al., 2020)
         gwas_data <- merge(gwas_data, snp_info, by = "association_id", all.x = TRUE)
       } else {
         gwas_data$SNP <- NA_character_
@@ -132,6 +161,18 @@ getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
 #' @import ggplot2
 #' @importFrom dplyr arrange desc
 #' @export
+#' 
+#' @examples
+#' \donttest{
+#' # Get GWAS data and create summary plot
+#' gwas_data <- getCeliacGwas()
+#' plotGwasSummary(gwas_data)
+#'
+#' # Custom title and significance level
+#' plotGwasSummary(gwas_data, 
+#'                 title = "Celiac Disease Association Results",
+#'                 significanceLevel = 1e-6)
+#' }
 plotGwasSummary <- function(gwas_data, title = "Celiac Disease GWAS Summary", 
                               significance_level = 5e-8) {
   
@@ -144,6 +185,7 @@ plotGwasSummary <- function(gwas_data, title = "Celiac Disease GWAS Summary",
   # Create a simple point plot (similar to volcano but without effect size)
   p <- ggplot(gwas_data, aes(x = 1:nrow(gwas_data), y = log_p)) +
     geom_point(alpha = 0.6, size = 1, color = "blue") +
+    # Genome-wide significance threshold (Dudbridge & Gusnanto, 2008)
     geom_hline(yintercept = -log10(significance_level), 
                color = "red", linetype = "dashed", linewidth = 0.8) +
     labs(
@@ -168,6 +210,17 @@ plotGwasSummary <- function(gwas_data, title = "Celiac Disease GWAS Summary",
 #' 
 #' @import ggplot2
 #' @export
+#' 
+#' @examples
+#' \donttest{
+#' # Plot top 20 hits
+#' gwas_data <- getCeliacGwas()
+#' plotTopGwasHits(gwas_data)
+#'
+#' # Plot top 10 hits with custom title
+#' plotTopGwasHits(gwas_data, topN = 10, 
+#'                 title = "Top 10 Celiac Disease GWAS Hits")
+#' }
 plotTopGwasHits <- function(gwas_data, top_n = 20, title = "Top Celiac Disease GWAS Hits") {
   
   # Sort by p-value and take top hits using base R

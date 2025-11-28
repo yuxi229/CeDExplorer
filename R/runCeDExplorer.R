@@ -1,28 +1,44 @@
-#' Launch CeDExplorer Shiny Application
+# Launch CeDExplorer Shiny Application
+#
+# Starts the interactive Shiny web application for exploring
+# celiac disease gene expression data.
+
+#' Run CeDExplorer Shiny Application
 #'
-#' Interactive web application for exploring gene expression in celiac disease.
-#' Users can upload CSV files with expression data or use built-in demo data.
+#' @name runCeDExplorerApp
 #'
 #' @details
-#' The Shiny app provides:
-#' - Gene expression visualization using boxplots or violin plots
-#' - Support for user-uploaded CSV data
+#' The Shiny application provides:
+#' - Interactive visualization of gene expression differences between 
+#'   celiac disease (CeD) and control samples
+#' - Support for user-uploaded CSV data in long format
 #' - Built-in demo data for testing
-#' - Data summary statistics
+#' - Dynamic gene selection based on available data
+#' - Option for boxplots or violin plots
 #'
-#' File format requirements for upload:
-#' - CSV format with samples as rows
-#' - Required columns: 'sample', 'condition' 
-#' - Additional columns: gene expression values
-#' - Condition values: 'CeD' or 'Control'
+#' @section Demo Data:
+#' The app includes built-in demo data (`example_expression`) containing
+#' expression values for immune-related genes. Users can also upload their
+#' own CSV files with the following required columns:
+#' - `gene`: Gene symbol (e.g., "HLA-DQA1")
+#' - `sample`: Sample identifier  
+#' - `condition`: "CeD" or "Control"
+#' - `expression`: Numeric expression values
 #'
-#' Demo data location: inst/extdata/demo_expression_data.csv
+#' Demo data location: Use built-in `example_expression` dataset or
+#' create CSV files following the required format.
+#'
+#' @return Shiny application object
 #'
 #' @export
+#' @importFrom shiny runApp
 #' @examples
 #' \dontrun{
 #' # Launch the Shiny app
 #' runCeDExplorerApp()
+#' 
+#' # The app will open in your default web browser
+#' # Use the demo data or upload your own CSV files
 #' }
 runCeDExplorerApp <- function() {
   app_dir <- system.file("shiny-scripts", package = "CeDExplorer")

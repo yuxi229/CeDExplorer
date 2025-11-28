@@ -2,36 +2,49 @@
 % Please edit documentation in R/runCeDExplorer.R
 \name{runCeDExplorerApp}
 \alias{runCeDExplorerApp}
-\title{Launch CeDExplorer Shiny Application}
+\title{Run CeDExplorer Shiny Application}
 \usage{
 runCeDExplorerApp()
 }
+\value{
+Shiny application object
+}
 \description{
-Interactive web application for exploring gene expression in celiac disease.
-Users can upload CSV files with expression data or use built-in demo data.
+Run CeDExplorer Shiny Application
 }
 \details{
-The Shiny app provides:
+The Shiny application provides:
 \itemize{
-\item Gene expression visualization using boxplots or violin plots
-\item Support for user-uploaded CSV data
+\item Interactive visualization of gene expression differences between
+celiac disease (CeD) and control samples
+\item Support for user-uploaded CSV data in long format
 \item Built-in demo data for testing
-\item Data summary statistics
+\item Dynamic gene selection based on available data
+\item Option for boxplots or violin plots
 }
+}
+\section{Demo Data}{
 
-File format requirements for upload:
+The app includes built-in demo data (\code{example_expression}) containing
+expression values for immune-related genes. Users can also upload their
+own CSV files with the following required columns:
 \itemize{
-\item CSV format with samples as rows
-\item Required columns: 'sample', 'condition'
-\item Additional columns: gene expression values
-\item Condition values: 'CeD' or 'Control'
+\item \code{gene}: Gene symbol (e.g., "HLA-DQA1")
+\item \code{sample}: Sample identifier
+\item \code{condition}: "CeD" or "Control"
+\item \code{expression}: Numeric expression values
 }
 
-Demo data location: inst/extdata/demo_expression_data.csv
+Demo data location: Use built-in \code{example_expression} dataset or
+create CSV files following the required format.
 }
+
 \examples{
 \dontrun{
 # Launch the Shiny app
 runCeDExplorerApp()
+
+# The app will open in your default web browser
+# Use the demo data or upload your own CSV files
 }
 }
