@@ -1,0 +1,12 @@
+citHeader("To cite CeDExplorer in publications use:")
+
+citEntry(entry = "Manual",
+  title        = "CeDExplorer: Comprehensive Analysis Toolkit for Celiac Disease Genomics and Transcriptomics",
+  author       = personList(as.person("Yuxi Zhang")),
+  year         = "2025",
+  note         = "R package version 1.0.0",
+  url          = "https://github.com/yuxi229/CeDExplorer",
+
+  textVersion  =
+  paste("Zhang, Y. (2025). CeDExplorer: Comprehensive analysis toolkit for celiac disease genomics and transcriptomics (Version 1.0.0) [Computer software]. https://github.com/yuxi229/CeDExplorer")
+)
