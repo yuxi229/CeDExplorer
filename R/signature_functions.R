@@ -43,9 +43,9 @@
 #' res$plot
 #' }
 scoreInflammationSignature <- function(dataset = NULL,
-                                         signature = "IFN_gamma",
-                                         method = "mean",
-                                         plot = TRUE) {
+                                       signature = "IFN_gamma",
+                                       method = "mean",
+                                       plot = TRUE) {
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     stop("Please install 'ggplot2'.")
   }
@@ -134,4 +134,6 @@ scoreInflammationSignature <- function(dataset = NULL,
 
   return(out)
 }
+
+# [END] 
 

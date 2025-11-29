@@ -47,11 +47,11 @@
 #' hlaInteractionPlot("HLA-DQB1", point_size = 3, add_trend = TRUE)
 #' }
 hlaInteractionPlot <- function(gene,
-                                 dataset = NULL,
-                                 allele_freq = NULL,
-                                 condition_col = "condition",
-                                 point_size = 2,
-                                 add_trend = TRUE) {
+                               dataset = NULL,
+                               allele_freq = NULL,
+                               condition_col = "condition", 
+                               point_size = 2,
+                               add_trend = TRUE) {
   
   # Check required packages
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
@@ -223,3 +223,5 @@ getHlaAlleleFrequencies <- function() {
     stringsAsFactors = FALSE
   )
 }
+
+# [END] 

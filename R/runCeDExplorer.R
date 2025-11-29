@@ -64,4 +64,8 @@ runCeDExplorerApp <- function() {
   }
   
   shiny::runApp(app_dir, display.mode = "normal")
+  
+  return (app)
 }
+
+# [END] 

@@ -50,19 +50,19 @@
 #' }
 getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
   
-  if(fetch || force_fetch) {
+  if (fetch == TRUE || force_fetch == TRUE) {
     message("Fetching celiac disease GWAS data from GWAS Catalog...")
     
     tryCatch({
       # Ensure gwasrapidd is available
-      if(!requireNamespace("gwasrapidd", quietly = TRUE)) {
+      if (!requireNamespace("gwasrapidd", quietly = TRUE)) {
         stop("gwasrapidd package required for fetching GWAS data")
       }
       
       # Get associations for celiac disease
       associations <- gwasrapidd::get_associations(efo_trait = "celiac disease")
       
-      if(nrow(associations@associations) == 0) {
+      if (nrow(associations@associations) == 0) {
         stop("No celiac disease associations found in GWAS Catalog")
       }
       
@@ -80,7 +80,7 @@ getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
       )
       
       # Extract SNP information from risk_alleles
-      if(nrow(associations@risk_alleles) > 0) {
+      if (nrow(associations@risk_alleles) > 0) {
         risk_alleles <- as.data.frame(associations@risk_alleles)
         # Get unique variant information
         snp_info <- risk_alleles[, c("association_id", "variant_id", "risk_allele")]
@@ -95,7 +95,7 @@ getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
       }
       
       # Extract gene information
-      if(nrow(associations@genes) > 0) {
+      if (nrow(associations@genes) > 0) {
         genes <- as.data.frame(associations@genes)
         # For associations with multiple genes, take the first one
         gene_info <- genes[!duplicated(genes$association_id), 
@@ -115,7 +115,7 @@ getCeliacGwas <- function(fetch = FALSE, force_fetch = FALSE) {
       cat("DEBUG: Sample data:\n")
       print(head(gwas_data[, c("association_id", "SNP", "mapped_gene", "p_value")]))
       
-      if(nrow(gwas_data) == 0) {
+      if (nrow(gwas_data) == 0) {
         stop("No complete GWAS records found after filtering")
       }
       
@@ -253,3 +253,5 @@ plotTopGwasHits <- function(gwas_data, top_n = 20, title = "Top Celiac Disease G
   
   return(p)
 }
+
+# [END] 
